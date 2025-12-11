@@ -1,0 +1,109 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <div class="form-floating">
+        <input
+          [formControlName]="'flowRate'"
+          type="number"
+          class="form-control"
+          id="flowRate"
+          placeholder=" "
+          [class.is-invalid]="invalid('flowRate')"
+          [class.is-valid]="valid('flowRate')"
+        />
+        <label for="flowRate" class="form-label">Flow Rate</label>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="form-floating form-select-floating">
+        <select
+          [formControlName]="'flowRateUnit'"
+          class="form-select"
+          id="flowRateUnit"
+          placeholder=" "
+          [class.is-invalid]="invalid('flowRateUnit')"
+          [class.is-valid]="valid('flowRateUnit')"
+        >
+          @for (fru of flowRateUnits; track fru.value){
+          <option value="{{fru.value}}">{{fru.label}}</option>
+          }
+        </select>
+        <label for="flowRate" class="form-label">Flow Rate Unit</label>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <p><a [routerLink]="['flow-rate']">How to determin flow rate</a></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <div class="form-floating">
+        <input
+          [formControlName]="'headerHeight'"
+          type="number"
+          [class.is-invalid]="invalid('headerHeight')"
+          [class.is-valid]="valid('headerHeight')"
+          class="form-control"
+          id="headHeight"
+          placeholder=" "
+        />
+        <label for="headHeight" class="form-label">Head Height</label>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="form-floating form-select-floating">
+        <select
+          [formControlName]="'headerHeightUnit'"
+          class="form-select"
+          id="headerHeightUnit"
+          [class.is-invalid]="invalid('headerHeightUnit')"
+          [class.is-valid]="valid('headerHeightUnit')"
+        >
+          @for (hhu of headerHeightUnits; track hhu.value){
+          <option value="{{hhu.value}}">{{hhu.label}}</option>
+          }
+        </select>
+        <label for="flowRate" class="form-label">Head Height Unit</label>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <p><a href="">How to determin head height</a></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <div class="form-floating">
+        <input
+          [formControlName]="'efficiency'"
+          type="number"
+          class="form-control"
+          id="efficiency"
+          placeholder=" "
+          [class.is-invalid]="invalid('efficiency')"
+          [class.is-valid]="valid('efficiency')"
+        />
+        <label for="efficiency" class="form-label"
+          >Turbine Efficiency (%)</label
+        >
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <p>The real-world output is usually lower due to:</p>
+      <ul>
+        <li>Turbine efficiency</li>
+        <li>Generator efficiency</li>
+        <li>Friction losses in pipes</li>
+      </ul>
+      <p>
+        Using the efficiency factor above accounts for this roughly. This can
+        vary from 50 to 80 percent.
+      </p>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary btn-lg shadow" [class.btn-success]="form.valid">
+    Calculate Power Output
+  </button>
+</form>
+@if (output() > 0) {
+<app-system-options [estimatedPower]="output()"></app-system-options>
+}

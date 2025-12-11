@@ -1,0 +1,137 @@
+<svg
+  class="water-svg"
+  role="img"
+  focusable="false"
+  [attr.viewBox]="'0 0 ' + width() + ' ' + height()"
+>
+  <defs>
+    <style>
+      .water-text {
+        font-family: 'Poppins', 'Inter', 'Segoe UI', sans-serif;
+        font-weight: 900;
+        font-size: {{fontSize()}}px;
+        letter-spacing: -6px;
+      }
+    </style>
+
+    <!-- Text clip path -->
+    <clipPath id="text-clip" clipPathUnits="userSpaceOnUse">
+      <text
+        x="50%"
+        [attr.y]="height() * 0.65"
+        text-anchor="middle"
+        class="water-text"
+      >
+        {{ text() }}
+      </text>
+    </clipPath>
+
+    <!-- Light gradient -->
+    <linearGradient id="wave-grad" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#bff3ff" stop-opacity="0.9" />
+      <stop offset="50%" stop-color="#5cd6ff" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#2aa6ff" stop-opacity="0.95" />
+    </linearGradient>
+
+    <!-- Deep gradient -->
+    <linearGradient id="wave-grad-deep" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#2aa6ff" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#0872b8" stop-opacity="0.95" />
+    </linearGradient>
+
+    <!-- Wave path -->
+    <path
+      id="wavePath"
+      [attr.d]="'M0 60 C60 20, 140 100, 240 60 C340 20, 420 100, 540 60 C660 20, 740 100, 860 60 C980 20, 1060 100, 1200 60 L1200 ' + height() + ' L0 ' + height() + ' Z'"
+    />
+  </defs>
+
+  <!-- Outline text -->
+  <g fill="rgba(255,255,255,0.04)">
+    <text
+      x="50%"
+      [attr.y]="height() * 0.65"
+      text-anchor="middle"
+      class="water-text"
+    >
+      {{ text() }}
+    </text>
+  </g>
+
+  <!-- Background inside letters -->
+  <g clip-path="url(#text-clip)">
+    <rect
+      x="0"
+      y="0"
+      [attr.width]="width()"
+      [attr.height]="height()"
+      fill="#021a2a"
+    />
+  </g>
+
+  <!-- Front wave -->
+  <g clip-path="url(#text-clip)" class="wave-group bob-1">
+    <g transform="translate(0,40)">
+      <use href="#wavePath" fill="url(#wave-grad)" opacity="0.92" />
+      <use
+        href="#wavePath"
+        transform="translate(-1200,0)"
+        fill="url(#wave-grad)"
+        opacity="0.92"
+      />
+      <animateTransform
+        attributeName="transform"
+        type="translate"
+        from="0 40"
+        to="-600 40"
+        [attr.dur]="waveSpeed1() + 's'"
+        repeatCount="indefinite"
+      />
+    </g>
+  </g>
+
+  <!-- Back wave -->
+  <g clip-path="url(#text-clip)" class="wave-group bob-2">
+    <g transform="translate(0,70)">
+      <use href="#wavePath" fill="url(#wave-grad-deep)" opacity="0.96" />
+      <use
+        href="#wavePath"
+        transform="translate(-1200,0)"
+        fill="url(#wave-grad-deep)"
+        opacity="0.96"
+      />
+      <animateTransform
+        attributeName="transform"
+        type="translate"
+        from="0 70"
+        to="-800 70"
+        [attr.dur]="waveSpeed2() + 's'"
+        repeatCount="indefinite"
+      />
+    </g>
+  </g>
+
+  <!-- Top highlight -->
+  <g clip-path="url(#text-clip)" opacity="0.22">
+    <rect
+      x="0"
+      y="0"
+      [attr.width]="width()"
+      [attr.height]="height() * 0.4"
+      fill="white"
+      transform="skewX(-20)"
+    />
+  </g>
+
+  <!-- Stroke highlight -->
+  <g fill="none" stroke="rgba(255,255,255,0.14)" stroke-width="2">
+    <text
+      x="50%"
+      [attr.y]="height() * 0.65"
+      text-anchor="middle"
+      class="water-text"
+    >
+      {{ text() }}
+    </text>
+  </g>
+</svg>
