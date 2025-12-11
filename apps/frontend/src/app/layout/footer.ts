@@ -4,7 +4,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
   selector: 'app-footer',
   imports: [],
   template: `<hr />
-    <p>&copy; 2025 StreamHydro Energy. All rights reserved.</p> `,
+    <p>&copy; 2025 Falling water energy LLC. All rights reserved.</p> `,
   encapsulation: ViewEncapsulation.None,
 })
 export class Footer {}

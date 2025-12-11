@@ -15,10 +15,10 @@ interface DatabaseConfig {
 
 // Database configuration
 const config: DatabaseConfig = {
-  user: process.env.DB_USER || 'postgres',
+  user: process.env.DB_USER || 'fallingwater',
   host: process.env.DB_HOST || 'localhost',
-  database: process.env.DB_NAME || 'mydb',
-  password: process.env.DB_PASSWORD || 'password',
+  database: process.env.DB_NAME || 'falling_water',
+  password: process.env.DB_PASSWORD || 'fallingwater',
   port: parseInt(process.env.DB_PORT || '5432'),
   
   // Connection pool settings

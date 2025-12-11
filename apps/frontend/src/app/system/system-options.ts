@@ -8,6 +8,7 @@ import {
   Renderer2,
   viewChild,
 } from '@angular/core';
+import { PowerOutput } from '../builder/power-output';
 
 @Component({
   selector: 'app-system-options',
@@ -18,7 +19,7 @@ import {
 export class SystemOptions {
   private readonly scrollAmount = 300;
   private readonly renderer = inject(Renderer2);
-  readonly estimatedPower = input.required<number>();
+  readonly estimatedPower = input.required<PowerOutput>();
 
   readonly container = viewChild<ElementRef>('cardScroll');
   readonly leftBtn = viewChild<ElementRef>('scrollLeft');

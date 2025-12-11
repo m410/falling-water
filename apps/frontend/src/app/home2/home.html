@@ -33,7 +33,13 @@
   @if(showForm()) {
   <div class="row slide-in-top">
     <div class="col">
-      <app-builder></app-builder>
+      <app-builder (result)="powerOutput.set($event)"></app-builder>
+    </div>
+  </div>
+  } @if (powerOutput()) {
+  <div class="card">
+    <div class="card-body">
+      <app-system-options [estimatedPower]="powerOutput()!"></app-system-options>
     </div>
   </div>
   }

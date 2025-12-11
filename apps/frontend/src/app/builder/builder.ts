@@ -1,24 +1,20 @@
-import { DecimalPipe } from '@angular/common';
-import { Component, signal, ViewEncapsulation } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { RouterLink } from "@angular/router";
-import { SystemOptions } from "../system/system-options";
+import { Component, output, signal, ViewEncapsulation } from '@angular/core';
 
+import { RouterLink } from '@angular/router';
+
+import { form, Field, min, max } from '@angular/forms/signals';
+import { PowerOutput } from './power-output';
 
 @Component({
   selector: 'app-builder',
-  imports: [ReactiveFormsModule, RouterLink, SystemOptions],
+  imports: [RouterLink, Field],
   templateUrl: './builder.html',
   styles: ``,
   encapsulation: ViewEncapsulation.None,
 })
 export class Builder {
-  protected readonly output = signal(0);
+  readonly result = output<PowerOutput>();
+
   protected readonly flowRateUnits = [
     { label: 'Cubic meters per second (m³/s)', value: 'cms' },
     { label: 'Liters per second (L/s)', value: 'lps' },
@@ -30,18 +26,21 @@ export class Builder {
     { label: 'Meters (m)', value: 'mt' },
     { label: 'Feet (ft)', value: 'ft' },
   ];
-  protected readonly form = new FormGroup({
-    flowRate: new FormControl<number | null>(null, [Validators.required, Validators.min(0.01)]),
-    flowRateUnit: new FormControl<string | null>(null, [Validators.required]),
-    headerHeight: new FormControl<number | null>(null,[Validators.required, Validators.min(0.01)]),
-    headerHeightUnit: new FormControl<string | null>(null,[Validators.required]),
-    efficiency: new FormControl(70, [Validators.required, Validators.min(1), Validators.max(100)]),
+
+  readonly powerOutput = signal<PowerOutput>({
+    flowRate: 0,
+    flowRateUnit: 'cms',
+    headerHeight: 0,
+    headerHeightUnit: 'mt',
+    efficiency: 70,
   });
-  // // protected readonly form = form(signal({
-  //   flowRate: 0,
-  //   headerHeight: 0,
-  //   efficiency: 0.9,
-  // }))
+
+  readonly powerOutputForm = form(this.powerOutput, (path) => {
+    min(path.flowRate, 1);
+    min(path.headerHeight, 1);
+    min(path.efficiency, 1);
+    max(path.efficiency, 100);
+  });
 
   // The theoretical hydraulic power from water is given by:
   // P=η⋅ρ⋅g⋅Q⋅H
@@ -53,33 +52,36 @@ export class Builder {
   // Q = Flow rate (m³/s)
   // H = Head height (m)
 
-  onSubmit() {
-    this.form.markAllAsTouched();
+  onSubmit($event: Event) {
+    $event.preventDefault();
+    $event.stopPropagation();
 
-    if (this.form.valid) {
-      const flowRate = this.form.value.flowRate!;
-      const flowRateUnit = this.form.value.flowRateUnit!;
-      const headerHeight = this.form.value.headerHeight!;
-      const headerHeightUnit = this.form.value.headerHeightUnit!;
-      const efficiency = this.form.value.efficiency! / 100; // Convert percentage to decimal}
-      const rate =
-        this.flowRate(flowRate, flowRateUnit) *
-        this.headerHeight(headerHeight, headerHeightUnit) *
-        efficiency *
-        1000 * // density of water
-        9.81; // gravity
-      this.output.set(rate);
-    }
+    // this.powerOutputForm.markAllAsTouched();
+
+    const flowRate = this.powerOutputForm.flowRate().value();
+    const flowRateUnit = this.powerOutputForm.flowRateUnit().value();
+    const headerHeight = this.powerOutputForm.headerHeight().value();
+    const headerHeightUnit = this.powerOutputForm.headerHeightUnit().value();
+    const efficiency = this.powerOutputForm.efficiency().value() / 100; // Convert percentage to decimal}
+    const rate =
+      this.flowRate(flowRate, flowRateUnit) *
+      this.headerHeight(headerHeight, headerHeightUnit) *
+      efficiency *
+      1000 * // density of water
+      9.81; // gravity
+
+    const out = { rate: rate, ...this.powerOutput() };
+    this.result.emit(out);
   }
 
-  protected invalid(arg0: string) {
-    return this.form.get(arg0)?.invalid && this.form.get(arg0)?.touched
-  }
+  // protected invalid(arg0: string) {
+  //   return this.form.get(arg0)?.invalid && this.form.get(arg0)?.touched
+  // }
 
-  protected valid(arg0: string) {
-    return this.form.get(arg0)?.valid && this.form.get(arg0)?.touched
-  }
-  
+  // protected valid(arg0: string) {
+
+  //   return this.form.get(arg0)?.valid && this.form.get(arg0)?.touched
+  // }
 
   private readonly headerHeight = (height: number, unit: string) => {
     switch (unit) {

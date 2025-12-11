@@ -6,6 +6,8 @@ export function createAuthRoutes(controller: AuthEndpoints): Router {
   const router = Router();
 
   router.post('/login', controller.login);
+  router.post('/register', controller.register);
+  router.get('/logout', controller.logout);
   router.get('/profile', authenticateToken, authorizeRoles('admin', 'user'), controller.profile);
   router.get('/admin', authenticateToken, authorizeRoles('admin'), controller.admin);
 

@@ -8,5 +8,5 @@ import { RouterModule } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
 })
 export class App {
-  protected title = 'streamhydro.energy';
+  protected title = 'falling-water.energy';
 }
