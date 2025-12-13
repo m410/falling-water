@@ -1,0 +1,30 @@
+
+$theme-colors: (
+    "light":      #ddddce,
+    "dark":       #02191c,
+    "primary":    #034226,
+    "secondary":  #695e33,
+    "info":       #cb5235,
+    "success":    #069924,
+    "warning":    #f0c108,
+    "danger":     #ed0343,
+);
+
+$light: #ddddce;
+$dark: #02191c;
+$primary: #034226;
+$secondary: #695e33;
+$info: #cb5235;
+$success: #069924;
+$warning: #f0c108;
+$danger: #ed0343;
+$enable-hover-media-query: true;
+$enable-responsive-font-sizes: true;
+$enable-prefers-reduced-motion-media-query: false;
+$enable-gradients: true;
+$enable-shadows: true;
+$border-radius: 1rem;
+$border-radius-lg: 1.25rem;
+$border-radius-sm: .25rem;
+$border-color: #ddddce;
+

@@ -34,7 +34,7 @@ import { RouterLink } from '@angular/router';
         </a>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['dictionary']">Learn</a>
+            <a class="nav-link" [routerLink]="['hydro-system']">System</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['contact']">Contact</a>

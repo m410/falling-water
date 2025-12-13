@@ -1,10 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-dictionary',
   imports: [],
-  templateUrl: './dictionary.html',
-  styles: ``,
+  templateUrl: './hydro-system.html',
   encapsulation: ViewEncapsulation.None,
 })
-export class Dictionary {}
+export class HydroSystem {}

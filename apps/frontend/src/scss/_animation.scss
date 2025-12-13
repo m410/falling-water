@@ -1,0 +1,43 @@
+// 🎯 Pro tips
+// Increase translateY(-40px) for a stronger drop effect
+// Add animation-delay: 150ms; for staggered lists
+// Use prefers-reduced-motion for accessibility if this ships to production
+// If you want an Angular-ready version (triggered by *ngIf or state), say the word and I’ll wire it cleanly.
+
+
+.slide-fade {
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: slideFadeDown 500ms ease-out forwards;
+
+  /* styling just for demo */
+  max-width: 420px;
+  padding: 16px 20px;
+  background: #0e4c68;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+@keyframes slideFadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.slide-fade {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 400ms ease, transform 400ms ease;
+}
+
+.slide-fade.show {
+  opacity: 1;
+  transform: translateY(0);
+}
