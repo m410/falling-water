@@ -4,7 +4,7 @@
   "license": "private",
   "scripts": {
     "nx": "nx",
-    "api": "NODE_NO_WARNINGS=1 nx serve api",
+    "api": "nx serve api",
     "start": "NODE_NO_WARNINGS=1 nx serve frontend --proxy-config=apps/frontend/proxy.config.json",
     "build": "NODE_NO_WARNINGS=1 nx build frontend",
     "knex": "knex",
