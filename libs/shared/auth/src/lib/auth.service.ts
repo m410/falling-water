@@ -1,4 +1,4 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 
@@ -9,7 +9,7 @@ export interface LoginResponse {
 export interface TokenPayload {
   id: number;
   username: string;
-  role: string;
+  roles: string[];
   exp: number;
 }
 
@@ -17,17 +17,14 @@ export interface TokenPayload {
   providedIn: 'root',
 })
 export class AuthService {
+  private readonly http = inject(HttpClient);
   private readonly tokenKey = 'auth_token';
   private readonly userSignal = signal<TokenPayload | null>(null);
 
   readonly user = this.userSignal.asReadonly();
   readonly isAuthenticated = computed(() => this.userSignal() !== null);
-  readonly isAdmin = computed(() => this.userSignal()?.role === 'admin');
-  readonly role = computed(() => this.userSignal()?.role ?? null);
-
-  constructor(private http: HttpClient) {
-    this.loadStoredToken();
-  }
+  readonly isAdmin = computed(() => this.userSignal()?.roles.includes('admin') ?? false);
+  readonly roles = computed(() => this.userSignal()?.roles ?? []);
 
   login(email: string, password: string): Observable<LoginResponse> {
     return this.http
@@ -59,7 +56,7 @@ export class AuthService {
   }
 
   hasRole(role: string): boolean {
-    return this.userSignal()?.role === role;
+    return this.userSignal()?.roles.includes(role) ?? false;
   }
 
   private loadStoredToken(): void {

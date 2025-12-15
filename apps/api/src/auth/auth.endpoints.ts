@@ -9,7 +9,7 @@ const users: User[] = [
     id: 1,
     username: 'admin',
     password: 'admin',
-    role: 'admin',
+    roles: ['admin'],
     name: 'Admin User',
     email: 'test@test.com',
     phone: 'test@test.com',
@@ -20,7 +20,7 @@ const users: User[] = [
     id: 2,
     username: 'user',
     password: 'user',
-    role: 'user',
+    roles: ['user'],
     name: 'User user',
     phone: 'phone',
     email: 'test1@test.com',
@@ -48,18 +48,18 @@ export class AuthEndpoints {
       return res.status(500).json({ error: 'Internal server error' });
     }
 
-    await this.userService.findByEmail(username).then((user) => {
+    await this.userService.findByEmail(username).then(async (user) => {
 
       if (!user) {
         return res.status(401).json({ message: 'Invalid credentials' });
       }
 
-      const isValidPassword = bcrypt.compare(password, user.password);
+      const isValidPassword = await bcrypt.compare(password, (user as any).password_hash);
 
       if (!isValidPassword) {
         return res.status(401).json({ error: 'Invalid credentials' });
       }
-      const payload = { id: user.id, username: user.email, role: user.role };
+      const payload = { id: user.id, username: user.email, roles: user.roles };
       const token = jwt.sign(payload, process.env.JWT_SECRET!, {
         expiresIn: '1h',
       });

@@ -7,7 +7,7 @@ export interface User {
   phone: string;
   created_at: Date;
   updated_at: Date;
-  role: string;
+  roles: string[];
 }
 
 export interface CreateUserDTO {

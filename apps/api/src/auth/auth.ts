@@ -7,7 +7,7 @@ dotenv.config();
 interface UserPayload extends JwtPayload {
   id: number;
   username: string;
-  role: string;
+  roles: string[];
 }
 
 // --- Authentication ---
@@ -35,7 +35,7 @@ export function authorizeRoles(...allowedRoles: string[]) {
   return (req: Request, res: Response, next: NextFunction) => {
     const user = req.user as UserPayload | undefined;
     if (!user) return res.status(401).json({ message: 'Not authenticated' });
-    if (!allowedRoles.includes(user.role)) {
+    if (!user.roles.some(role => allowedRoles.includes(role))) {
       return res.status(403).json({ message: 'Forbidden: insufficient role' });
     }
     next();
