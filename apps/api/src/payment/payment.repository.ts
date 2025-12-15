@@ -1,7 +1,7 @@
 import { Pool } from 'pg';
 import { Payment, CreatePaymentDTO, UpdatePaymentDTO } from './payment';
 
-export class PaymentService {
+export class PaymentRepository {
   constructor(private db: Pool) {}
 
   async findAll(): Promise<Payment[]> {

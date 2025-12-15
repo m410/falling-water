@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+import { authGuard } from '@falling-water/shared/auth';
 
 export const appRoutes: Route[] = [
   {
@@ -32,11 +33,28 @@ export const appRoutes: Route[] = [
         path: 'cart',
         loadComponent: () => import('./store/cart/cart').then((m) => m.Cart),
         title: 'Falling Water - Shopping Cart',
+        canActivate: [authGuard],
       },
       {
         path: 'flow-rate',
         loadComponent: () => import('./hydro-system/flow-rate/flow-rate').then((m) => m.FlowRate),
         title: 'Falling Water - Flow Rate Calculator',
+      },
+      {
+        path: 'account',
+        loadComponent: () => import('./account/account').then((m) => m.Account),
+        title: 'Falling Water - My Account',
+        canActivate: [authGuard],
+      },
+      {
+        path: 'login',
+        loadComponent: () => import('./login/login').then((m) => m.Login),
+        title: 'Falling Water - Login',
+      },
+      {
+        path: 'register',
+        loadComponent: () => import('./register/register').then((m) => m.Register),
+        title: 'Falling Water - Register',
       },
     ],
   }

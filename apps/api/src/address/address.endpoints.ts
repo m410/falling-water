@@ -1,8 +1,8 @@
-import { AddressService } from './address.repository';
+import { AddressRepository } from './address.repository';
 import { Request, Response, NextFunction } from 'express';
 
 export class AddressEndpoints {
-  constructor(private addressService: AddressService) {}
+  constructor(private addressService: AddressRepository) {}
 
   findAll = async (req: Request, res: Response, next: NextFunction) => {
     try {

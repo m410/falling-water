@@ -1,11 +1,11 @@
-import { UserService } from "./user.repository";
+import { UserRepository } from "./user.repository";
 import { EmailService } from "./user.email";
 import {  Request, Response, NextFunction } from 'express';
 
 
 export class UserEndpoints {
   constructor(
-    private userService: UserService,
+    private userService: UserRepository,
     private emailService: EmailService
   ) {}
 
@@ -34,6 +34,8 @@ export class UserEndpoints {
   };
 
   create = async (req: Request, res: Response, next: NextFunction) => {
+    console.log('Creating user with data:', req.body);
+    
     try {
       const user = await this.userService.create(req.body);
       await this.emailService.sendWelcomeEmail(user.email, user.name);

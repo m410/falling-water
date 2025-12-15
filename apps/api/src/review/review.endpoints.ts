@@ -1,8 +1,8 @@
-import { ReviewService } from './review.repository';
+import { ReviewRepository } from './review.repository';
 import { Request, Response, NextFunction } from 'express';
 
 export class ReviewEndpoints {
-  constructor(private reviewService: ReviewService) {}
+  constructor(private reviewService: ReviewRepository) {}
 
   findAll = async (req: Request, res: Response, next: NextFunction) => {
     try {

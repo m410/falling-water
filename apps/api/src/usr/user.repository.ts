@@ -1,8 +1,12 @@
 import { Pool } from 'pg';
 import { User, CreateUserDTO } from './user';
 
+import bcrypt from 'bcrypt';
 
-export class UserService {
+
+export class UserRepository {
+  private readonly saltRounds = 17;
+
   constructor(private db: Pool) {}
 
   async findAll(): Promise<User[]> {
@@ -18,12 +22,27 @@ export class UserService {
     return result.rows[0] || null;
   }
 
-  async create(userData: CreateUserDTO): Promise<User> {
+
+  async findByEmail(email: string): Promise<User | null> {
     const result = await this.db.query<User>(
-      'INSERT INTO users (name, email) VALUES ($1, $2) RETURNING *',
-      [userData.name, userData.email]
+      'SELECT * FROM users WHERE email = $1',
+      [email]
+    );
+    return result.rows[0] || null;
+  }
+
+  async create(userData: CreateUserDTO): Promise<User> {
+    const hashPass = await this.hashPassword(userData.password);
+    const result = await this.db.query<User>(
+      'INSERT INTO users (name, email, password_hash) VALUES ($1, $2, $3) RETURNING *',
+      [userData.name, userData.email, hashPass]
     );
     return result.rows[0];
+  }
+
+  async hashPassword(password: string) {
+    const hash = await bcrypt.hash(password, this.saltRounds);
+    return hash;
   }
 
   async update(id: number, userData: Partial<CreateUserDTO>): Promise<User | null> {

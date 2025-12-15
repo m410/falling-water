@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h4 class="mb-0">
+            <i class="bi bi-person-circle me-2"></i>
+            Sign In
+          </h4>
+        </div>
+        <div class="card-body">
+          @if (error()) {
+            <div class="alert alert-danger" role="alert">
+              {{ error() }}
+            </div>
+          }
+
+          <form (submit)="onSubmit($event)">
+            <div class="mb-3">
+              <label for="username" class="form-label">Email</label>
+              <input
+                type="text"
+                class="form-control"
+                id="username"
+                [field]="form.email"
+                (ngModelChange)="username.set($event)"
+                autocomplete="username"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                [field]="form.password"
+                autocomplete="current-password"
+              />
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-primary w-100"
+              [disabled]="loading()"
+            >
+              @if (loading()) {
+                <span class="spinner-border spinner-border-sm me-2"></span>
+                Signing in...
+              } @else {
+                Sign In
+              }
+            </button>
+          </form>
+
+          <hr />
+
+          <p class="text-center mb-0">
+            Don't have an account?
+            <a [routerLink]="['/register']">Create one</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

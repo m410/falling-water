@@ -1,0 +1,23 @@
+// Sidebar specific styles
+
+#sidebar-wrapper {
+  width: 250px;
+  min-height: 100vh;
+  transition: margin 0.25s ease-out;
+
+  .list-group-item {
+    &:hover {
+      background-color: #343a40 !important;
+    }
+
+    &.active {
+      background-color: #495057 !important;
+      border-left: 3px solid $primary;
+    }
+  }
+}
+
+#page-content-wrapper {
+  min-width: 0;
+  width: 100%;
+}

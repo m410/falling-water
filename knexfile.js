@@ -18,8 +18,9 @@ module.exports = {
       max: 10
     },
     migrations: {
-      tableName: 'knex_migrations'
-    }
+      tableName: 'knex_migrations',
+      extension: 'ts'    
+  }
   },
 
   staging: {
@@ -34,7 +35,8 @@ module.exports = {
       max: 10
     },
     migrations: {
-      tableName: 'knex_migrations'
+      tableName: 'knex_migrations',
+      extension: 'ts'    
     }
   },
 
@@ -50,7 +52,8 @@ module.exports = {
       max: 10
     },
     migrations: {
-      tableName: 'knex_migrations'
+      tableName: 'knex_migrations',
+      extension: 'ts'    
     }
   }
 

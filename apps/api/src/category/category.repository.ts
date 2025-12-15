@@ -1,7 +1,7 @@
 import { Pool } from 'pg';
 import { Category, CreateCategoryDTO, UpdateCategoryDTO } from './category';
 
-export class CategoryService {
+export class CategoryRepository {
   constructor(private db: Pool) {}
 
   async findAll(): Promise<Category[]> {

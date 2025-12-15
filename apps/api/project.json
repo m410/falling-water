@@ -3,22 +3,14 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/api/src",
   "projectType": "application",
+  "tags": [],
   "targets": {
     "build": {
-      "executor": "@nx/webpack:webpack",
-      "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "production",
+      "executor": "@nx/js:tsc",
       "options": {
-        "target": "node",
-        "compiler": "tsc",
         "outputPath": "dist/apps/api",
         "main": "apps/api/src/main.ts",
-        "tsConfig": "apps/api/tsconfig.app.json",
-        "webpackConfig": "apps/api/webpack.config.js"
-      },
-      "configurations": {
-        "development": {},
-        "production": {}
+        "tsConfig": "apps/api/tsconfig.app.json"
       }
     },
     "prune-lockfile": {
@@ -53,8 +45,7 @@
       "dependsOn": ["build"],
       "options": {
         "buildTarget": "api:build",
-        "runBuildTargetDependencies": false,
-        "watch": false
+        "watch": true
       },
       "configurations": {
         "development": {
@@ -65,6 +56,5 @@
         }
       }
     }
-  },
-  "tags": []
+  }
 }

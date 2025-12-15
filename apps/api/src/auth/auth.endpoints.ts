@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { User } from '../usr/user';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import { UserRepository } from '../usr/user.repository';
 
 const users: User[] = [
   {
@@ -29,38 +30,41 @@ const users: User[] = [
 ];
 
 export class AuthEndpoints {
-  login = (req: Request, res: Response) => {
+
+  // add dependency on userService to login
+  constructor(
+    protected userService: UserRepository
+  ) {}
+  
+  login = async (req: Request, res: Response) => {
     const { username, password } = req.body as Partial<User>;
 
-    // todo replace with user service
-    const user = users.find(
-      (u) => u.username === username && u.password === password
-    );
+    if (!username || !password) {
+      return res.status(400).json({ error: 'Email and password required' });
+    };
 
-    // Compare provided password with hashed password
-    // const isValidPassword = await bcrypt.compare(password, user.password);
+    if(!this.userService) {
+      console.error('UserService not initialized');
+      return res.status(500).json({ error: 'Internal server error' });
+    }
 
-    // if (!isValidPassword) {
-    //   return res.status(401).json({ error: 'Invalid credentials' });
-    // }
+    await this.userService.findByEmail(username).then((user) => {
 
-    if (!user) return res.status(401).json({ message: 'Invalid credentials' });
+      if (!user) {
+        return res.status(401).json({ message: 'Invalid credentials' });
+      }
 
-    const payload = { id: user.id, username: user.username, role: user.role };
-    const token = jwt.sign(payload, process.env.JWT_SECRET!, {
-      expiresIn: '1h',
-    });
+      const isValidPassword = bcrypt.compare(password, user.password);
 
-    res.json({ token });
-  };
+      if (!isValidPassword) {
+        return res.status(401).json({ error: 'Invalid credentials' });
+      }
+      const payload = { id: user.id, username: user.email, role: user.role };
+      const token = jwt.sign(payload, process.env.JWT_SECRET!, {
+        expiresIn: '1h',
+      });
 
-  admin = (req: Request, res: Response) => {
-    res.json({ message: `Hello Admin ${req.user?.username}` });
-  };
-
-  profile = (req: Request, res: Response) => {
-    res.json({
-      message: `Hello ${req.user?.username}, role: ${req.user?.role}`,
+      res.json({ token });
     });
   };
 

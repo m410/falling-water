@@ -1,0 +1,47 @@
+// Custom.scss for Backoffice
+
+// 1. Include functions first
+@import 'bootstrap/scss/functions';
+
+// 2. Include any default variable overrides here
+@import 'variables';
+
+// 3. Include remainder of required Bootstrap stylesheets
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/variables-dark';
+
+// 4. Include any default map overrides here
+
+// 5. Include remainder of required parts
+@import 'bootstrap/scss/maps';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/root';
+
+// 6. Include Bootstrap components needed for admin UI
+@import 'bootstrap/scss/utilities';
+@import 'bootstrap/scss/reboot';
+@import 'bootstrap/scss/type';
+@import 'bootstrap/scss/images';
+@import 'bootstrap/scss/containers';
+@import 'bootstrap/scss/grid';
+@import 'bootstrap/scss/helpers';
+@import 'bootstrap/scss/buttons';
+@import 'bootstrap/scss/forms';
+@import 'bootstrap/scss/navbar';
+@import 'bootstrap/scss/nav';
+@import 'bootstrap/scss/card';
+@import 'bootstrap/scss/tables';
+@import 'bootstrap/scss/list-group';
+@import 'bootstrap/scss/alert';
+@import 'bootstrap/scss/badge';
+@import 'bootstrap/scss/spinners';
+
+// 7. Optionally include utilities API last
+@import 'bootstrap/scss/utilities/api';
+
+// Bootstrap Icons
+$bootstrap-icons-font-dir: 'bootstrap-icons/font/fonts';
+@import 'bootstrap-icons/font/bootstrap-icons';
+
+// 8. Custom styles for backoffice
+@import 'sidebar';

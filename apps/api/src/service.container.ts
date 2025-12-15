@@ -1,40 +1,40 @@
-import { UserService } from './usr/user.repository';
+import { UserRepository } from './usr/user.repository';
 import { EmailService } from './usr/user.email';
-import { ProductService } from './product/product.repository';
-import { AddressService } from './address/address.repository';
-import { CategoryService } from './category/category.repository';
-import { OrderService } from './order/order.repository';
-import { OrderItemService } from './order-item/order-item.repository';
-import { PaymentService } from './payment/payment.repository';
-import { ReviewService } from './review/review.repository';
-import { ShoppingCartItemService } from './shopping-cart-item/shopping-cart-item.repository';
+import { ProductRepository } from './product/product.repository';
+import { AddressRepository } from './address/address.repository';
+import { CategoryRepository } from './category/category.repository';
+import { OrderRepository } from './order/order.repository';
+import { OrderItemRepository } from './order-item/order-item.repository';
+import { PaymentRepository } from './payment/payment.repository';
+import { ReviewRepository } from './review/review.repository';
+import { ShoppingCartItemRepository } from './shopping-cart-item/shopping-cart-item.repository';
 import { Pool } from 'pg';
 
 export interface ServiceContainer {
-  userService: UserService;
+  userService: UserRepository;
   emailService: EmailService;
-  productService: ProductService;
-  addressService: AddressService;
-  categoryService: CategoryService;
-  orderService: OrderService;
-  orderItemService: OrderItemService;
-  paymentService: PaymentService;
-  reviewService: ReviewService;
-  shoppingCartItemService: ShoppingCartItemService;
+  productService: ProductRepository;
+  addressService: AddressRepository;
+  categoryService: CategoryRepository;
+  orderService: OrderRepository;
+  orderItemService: OrderItemRepository;
+  paymentService: PaymentRepository;
+  reviewService: ReviewRepository;
+  shoppingCartItemService: ShoppingCartItemRepository;
   db: Pool;
 }
 
 export function createContainer(db: Pool): ServiceContainer {
   const emailService = new EmailService();
-  const userService = new UserService(db);
-  const productService = new ProductService(db);
-  const addressService = new AddressService(db);
-  const categoryService = new CategoryService(db);
-  const orderService = new OrderService(db);
-  const orderItemService = new OrderItemService(db);
-  const paymentService = new PaymentService(db);
-  const reviewService = new ReviewService(db);
-  const shoppingCartItemService = new ShoppingCartItemService(db);
+  const userService = new UserRepository(db);
+  const productService = new ProductRepository(db);
+  const addressService = new AddressRepository(db);
+  const categoryService = new CategoryRepository(db);
+  const orderService = new OrderRepository(db);
+  const orderItemService = new OrderItemRepository(db);
+  const paymentService = new PaymentRepository(db);
+  const reviewService = new ReviewRepository(db);
+  const shoppingCartItemService = new ShoppingCartItemRepository(db);
 
   return {
     userService,

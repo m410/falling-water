@@ -1,14 +1,15 @@
 import { Router } from 'express';
 import { UserEndpoints } from './user.endpoints';
+import { authenticateToken, authorizeRoles } from '../auth/auth';
 
 export function createUserRoutes(controller: UserEndpoints): Router {
   const router = Router();
 
-  router.get('/', controller.findAll);
-  router.get('/:id', controller.findById);
-  router.post('/', controller.create);
-  router.put('/:id', controller.update);
-  router.delete('/:id', controller.delete);
+  router.get('/', authenticateToken, authorizeRoles('user'), controller.findAll);
+  router.get('/:id', authenticateToken, authorizeRoles('user'), controller.findById);
+  router.post('/',  controller.create);
+  router.put('/:id', authenticateToken, authorizeRoles('user'), controller.update);
+  router.delete('/:id', authenticateToken, authorizeRoles('user'), controller.delete);
 
   return router;
 }

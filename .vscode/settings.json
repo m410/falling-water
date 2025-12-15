@@ -1,0 +1,11 @@
+{
+  "terminal.integrated.inheritEnv": true,
+  "terminal.integrated.defaultProfile.osx": "fish",
+  "terminal.integrated.profiles.osx": {
+    "fish": {
+      "path": "/opt/homebrew/bin/fish",
+      "args": ["-l"]
+    }
+  }
+}
+

@@ -1,7 +1,7 @@
 import { Pool } from 'pg';
 import { Order, CreateOrderDTO, UpdateOrderDTO } from './order';
 
-export class OrderService {
+export class OrderRepository {
   constructor(private db: Pool) {}
 
   async findAll(): Promise<Order[]> {
@@ -15,6 +15,14 @@ export class OrderService {
       [id]
     );
     return result.rows[0] || null;
+  }
+
+  async findByUserId(userId: number): Promise<Order[]> {
+    const result = await this.db.query<Order>(
+      'SELECT * FROM orders WHERE user_id = $1 ORDER BY created_at DESC',
+      [userId]
+    );
+    return result.rows;
   }
 
   async create(data: CreateOrderDTO): Promise<Order> {

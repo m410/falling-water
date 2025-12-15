@@ -33,7 +33,9 @@ export function createApp(container: ServiceContainer): Express {
   app.use(express.json());
   app.locals.container = container;
 
-  app.use('/api', createAuthRoutes(new AuthEndpoints()));
+  app.use('/api', createAuthRoutes(new AuthEndpoints(
+    container.userService)));
+  
   app.use('/api/users', createUserRoutes(new UserEndpoints(
     container.userService,
     container.emailService

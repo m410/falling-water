@@ -1,8 +1,8 @@
-import { ProductService } from './product.repository';
+import { ProductRepository } from './product.repository';
 import { Request, Response, NextFunction } from 'express';
 
 export class ProductEndpoints {
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductRepository) {}
 
   findAll = async (req: Request, res: Response, next: NextFunction) => {
     try {

@@ -1,7 +1,7 @@
 import { Pool } from 'pg';
 import { ShoppingCartItem, CreateShoppingCartItemDTO, UpdateShoppingCartItemDTO } from './shopping-cart-item';
 
-export class ShoppingCartItemService {
+export class ShoppingCartItemRepository {
   constructor(private db: Pool) {}
 
   async findAll(): Promise<ShoppingCartItem[]> {

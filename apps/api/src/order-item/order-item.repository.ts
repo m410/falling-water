@@ -1,7 +1,7 @@
 import { Pool } from 'pg';
 import { OrderItem, CreateOrderItemDTO, UpdateOrderItemDTO } from './order-item';
 
-export class OrderItemService {
+export class OrderItemRepository {
   constructor(private db: Pool) {}
 
   async findAll(): Promise<OrderItem[]> {

@@ -6,15 +6,20 @@ import {
 import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { authInterceptor } from './auth.interceptor';
+import { authInterceptor, AUTH_CONFIG } from '@falling-water/shared/auth';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZonelessChangeDetection(),
     provideBrowserGlobalErrorListeners(),
     provideRouter(appRoutes),
-    provideHttpClient(
-      withInterceptors([authInterceptor])
-    )
+    provideHttpClient(withInterceptors([authInterceptor])),
+    {
+      provide: AUTH_CONFIG,
+      useValue: {
+        loginRedirectPath: '/',
+        unauthorizedRedirectPath: '/',
+      },
+    },
   ],
 };

@@ -1,7 +1,7 @@
 import { Pool } from 'pg';
 import { Review, CreateReviewDTO, UpdateReviewDTO } from './review';
 
-export class ReviewService {
+export class ReviewRepository {
   constructor(private db: Pool) {}
 
   async findAll(): Promise<Review[]> {

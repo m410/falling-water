@@ -1,8 +1,8 @@
-import { PaymentService } from './payment.repository';
+import { PaymentRepository } from './payment.repository';
 import { Request, Response, NextFunction } from 'express';
 
 export class PaymentEndpoints {
-  constructor(private paymentService: PaymentService) {}
+  constructor(private paymentService: PaymentRepository) {}
 
   findAll = async (req: Request, res: Response, next: NextFunction) => {
     try {

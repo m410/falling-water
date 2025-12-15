@@ -1,0 +1,87 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h4 class="mb-0">
+            <i class="bi bi-person-plus me-2"></i>
+            Create Account
+          </h4>
+        </div>
+        <div class="card-body">
+          @if (error()) {
+            <div class="alert alert-danger" role="alert">
+              {{ error() }}
+            </div>
+          }
+
+          <form (submit)="onSubmit($event)" novalidate>
+            <div class="mb-3">
+              <label for="name" class="form-label">Full Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                [field]="registerForm.name"
+                autocomplete="name"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Email Address</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                [field]="registerForm.email"
+                autocomplete="email"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                [field]="registerForm.password"
+                autocomplete="new-password"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="confirmPassword" class="form-label">Confirm Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="confirmPassword"
+                [field]="registerForm.passwordConfirm"
+                autocomplete="new-password"
+              />
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-primary w-100"
+              [disabled]="loading()"
+            >
+              @if (loading()) {
+                <span class="spinner-border spinner-border-sm me-2"></span>
+                Creating Account...
+              } @else {
+                Create Account
+              }
+            </button>
+          </form>
+
+          <hr />
+
+          <p class="text-center mb-0">
+            Already have an account?
+            <a [routerLink]="['/login']">Sign in</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

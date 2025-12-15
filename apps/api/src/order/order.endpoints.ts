@@ -1,8 +1,8 @@
-import { OrderService } from './order.repository';
+import { OrderRepository } from './order.repository';
 import { Request, Response, NextFunction } from 'express';
 
 export class OrderEndpoints {
-  constructor(private orderService: OrderService) {}
+  constructor(private orderService: OrderRepository) {}
 
   findAll = async (req: Request, res: Response, next: NextFunction) => {
     try {

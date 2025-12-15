@@ -1,5 +1,6 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '@falling-water/shared/auth';
 
 @Component({
   selector: 'app-header',
@@ -43,7 +44,13 @@ import { RouterLink } from '@angular/router';
             <a class="nav-link" [routerLink]="['store']">Store</a>
           </li>
         </ul>
-        <div class="d-flex">
+        <div class="d-flex align-items-center gap-3">
+          @if (authService.isAuthenticated()) {
+            <a [routerLink]="['account']" class="nav-link"><i class="bi bi-person-circle"></i></a>
+          } @else {
+            <a [routerLink]="['login']" class="nav-link">Login</a>
+            <a [routerLink]="['register']" class="btn btn-outline-primary btn-sm">Register</a>
+          }
           <a [routerLink]="['cart']"><i class="bi bi-cart"></i></a>
         </div>
       </div>
@@ -51,4 +58,6 @@ import { RouterLink } from '@angular/router';
   </nav>`,
   encapsulation: ViewEncapsulation.None,
 })
-export class Header {}
+export class Header {
+  protected authService = inject(AuthService);
+}

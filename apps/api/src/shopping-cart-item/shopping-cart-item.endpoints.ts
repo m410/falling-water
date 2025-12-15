@@ -1,8 +1,8 @@
-import { ShoppingCartItemService } from './shopping-cart-item.repository';
+import { ShoppingCartItemRepository } from './shopping-cart-item.repository';
 import { Request, Response, NextFunction } from 'express';
 
 export class ShoppingCartItemEndpoints {
-  constructor(private shoppingCartItemService: ShoppingCartItemService) {}
+  constructor(private shoppingCartItemService: ShoppingCartItemRepository) {}
 
   findAll = async (req: Request, res: Response, next: NextFunction) => {
     try {

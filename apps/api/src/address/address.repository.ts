@@ -1,7 +1,7 @@
 import { Pool } from 'pg';
 import { Address, CreateAddressDTO, UpdateAddressDTO } from './address';
 
-export class AddressService {
+export class AddressRepository {
   constructor(private db: Pool) {}
 
   async findAll(): Promise<Address[]> {

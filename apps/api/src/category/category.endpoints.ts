@@ -1,8 +1,8 @@
-import { CategoryService } from './category.repository';
+import { CategoryRepository } from './category.repository';
 import { Request, Response, NextFunction } from 'express';
 
 export class CategoryEndpoints {
-  constructor(private categoryService: CategoryService) {}
+  constructor(private categoryService: CategoryRepository) {}
 
   findAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
