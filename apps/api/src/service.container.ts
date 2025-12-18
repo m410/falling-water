@@ -8,6 +8,7 @@ import { OrderItemRepository } from './order-item/order-item.repository';
 import { PaymentRepository } from './payment/payment.repository';
 import { ReviewRepository } from './review/review.repository';
 import { ShoppingCartItemRepository } from './shopping-cart-item/shopping-cart-item.repository';
+import { SystemRepository } from './system/system.repository';
 import { Pool } from 'pg';
 
 export interface ServiceContainer {
@@ -21,6 +22,7 @@ export interface ServiceContainer {
   paymentService: PaymentRepository;
   reviewService: ReviewRepository;
   shoppingCartItemService: ShoppingCartItemRepository;
+  systemService: SystemRepository;
   db: Pool;
 }
 
@@ -35,6 +37,7 @@ export function createContainer(db: Pool): ServiceContainer {
   const paymentService = new PaymentRepository(db);
   const reviewService = new ReviewRepository(db);
   const shoppingCartItemService = new ShoppingCartItemRepository(db);
+  const systemService = new SystemRepository(db);
 
   return {
     userService,
@@ -47,6 +50,7 @@ export function createContainer(db: Pool): ServiceContainer {
     paymentService,
     reviewService,
     shoppingCartItemService,
+    systemService,
     db,
   };
 }

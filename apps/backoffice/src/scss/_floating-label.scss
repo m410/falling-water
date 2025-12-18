@@ -1,0 +1,23 @@
+
+@mixin angular-floating-label-fix {
+  .form-floating {
+    > .form-control,
+    > .form-select,
+    > textarea.form-control {
+      // When Angular marks the field as non-empty:
+      &.ng-dirty ~ label,
+      &.ng-touched ~ label,
+      &.ng-not-empty ~ label,
+      &[ng-reflect-model] ~ label {
+        opacity: 1;
+        transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+      }
+      &:not(:placeholder-shown) ~ label {
+        opacity: 1;
+        transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+      }
+    }
+  }
+}
+
+@include angular-floating-label-fix;

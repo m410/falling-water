@@ -16,48 +16,52 @@
           }
 
           <form (submit)="onSubmit($event)" novalidate>
-            <div class="mb-3">
-              <label for="name" class="form-label">Full Name</label>
+            <div class="form-floating mb-3">
               <input
                 type="text"
                 class="form-control"
                 id="name"
                 [field]="registerForm.name"
                 autocomplete="name"
+                placeholder="Full Name"
               />
+              <label for="name">Full Name</label>
             </div>
 
-            <div class="mb-3">
-              <label for="email" class="form-label">Email Address</label>
+            <div class="form-floating mb-3">
               <input
                 type="email"
                 class="form-control"
                 id="email"
                 [field]="registerForm.email"
                 autocomplete="email"
+                placeholder="Email Address"
               />
+              <label for="email">Email Address</label>
             </div>
 
-            <div class="mb-3">
-              <label for="password" class="form-label">Password</label>
+            <div class="form-floating mb-3">
               <input
                 type="password"
                 class="form-control"
                 id="password"
                 [field]="registerForm.password"
                 autocomplete="new-password"
+                placeholder="Password"
               />
+              <label for="password">Password</label>
             </div>
 
-            <div class="mb-3">
-              <label for="confirmPassword" class="form-label">Confirm Password</label>
+            <div class="form-floating mb-3">
               <input
                 type="password"
                 class="form-control"
                 id="confirmPassword"
                 [field]="registerForm.passwordConfirm"
                 autocomplete="new-password"
+                placeholder="Confirm Password"
               />
+              <label for="confirmPassword">Confirm Password</label>
             </div>
 
             <button

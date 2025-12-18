@@ -20,7 +20,12 @@
             "input": "apps/backoffice/public"
           }
         ],
-        "styles": ["apps/backoffice/src/scss/styles.scss"]
+        "styles": ["apps/backoffice/src/scss/styles.scss"],
+        "stylePreprocessorOptions": {
+          "sass": {
+            "silenceDeprecations": ["import"]
+          }
+        }
       },
       "configurations": {
         "production": {

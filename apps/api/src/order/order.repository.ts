@@ -1,5 +1,6 @@
 import { Pool } from 'pg';
 import { Order, CreateOrderDTO, UpdateOrderDTO } from './order';
+import { PagedResult } from '../shared/types';
 
 export class OrderRepository {
   constructor(private db: Pool) {}
@@ -7,6 +8,26 @@ export class OrderRepository {
   async findAll(): Promise<Order[]> {
     const result = await this.db.query<Order>('SELECT * FROM orders ORDER BY id');
     return result.rows;
+  }
+
+  async findPage(page: number = 1, pageSize: number = 10): Promise<PagedResult<Order>> {
+    const offset = (page - 1) * pageSize;
+
+    const countResult = await this.db.query<{ count: string }>('SELECT COUNT(*) FROM orders');
+    const total = parseInt(countResult.rows[0].count, 10);
+
+    const result = await this.db.query<Order>(
+      'SELECT * FROM orders ORDER BY id LIMIT $1 OFFSET $2',
+      [pageSize, offset]
+    );
+
+    return {
+      data: result.rows,
+      total,
+      page,
+      pageSize,
+      totalPages: Math.ceil(total / pageSize),
+    };
   }
 
   async findById(id: number): Promise<Order | null> {

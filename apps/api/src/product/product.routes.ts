@@ -4,7 +4,7 @@ import { ProductEndpoints } from './product.endpoints';
 export function createProductRoutes(controller: ProductEndpoints): Router {
   const router = Router();
 
-  router.get('/', controller.findAll);
+  router.get('/', controller.findPage);
   router.get('/:id', controller.findById);
   router.post('/', controller.create);
   router.put('/:id', controller.update);

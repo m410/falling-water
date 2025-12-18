@@ -1,5 +1,6 @@
 import { Pool } from 'pg';
 import { Payment, CreatePaymentDTO, UpdatePaymentDTO } from './payment';
+import { PagedResult } from '../shared/types';
 
 export class PaymentRepository {
   constructor(private db: Pool) {}
@@ -7,6 +8,26 @@ export class PaymentRepository {
   async findAll(): Promise<Payment[]> {
     const result = await this.db.query<Payment>('SELECT * FROM payments ORDER BY id');
     return result.rows;
+  }
+
+  async findPage(page: number = 1, pageSize: number = 10): Promise<PagedResult<Payment>> {
+    const offset = (page - 1) * pageSize;
+
+    const countResult = await this.db.query<{ count: string }>('SELECT COUNT(*) FROM payments');
+    const total = parseInt(countResult.rows[0].count, 10);
+
+    const result = await this.db.query<Payment>(
+      'SELECT * FROM payments ORDER BY id LIMIT $1 OFFSET $2',
+      [pageSize, offset]
+    );
+
+    return {
+      data: result.rows,
+      total,
+      page,
+      pageSize,
+      totalPages: Math.ceil(total / pageSize),
+    };
   }
 
   async findById(id: number): Promise<Payment | null> {
@@ -73,5 +94,15 @@ export class PaymentRepository {
   async delete(id: number): Promise<boolean> {
     const result = await this.db.query('DELETE FROM payments WHERE id = $1', [id]);
     return (result.rowCount ?? 0) > 0;
+  }
+
+  async sumLastMonth(): Promise<number> {
+    const result = await this.db.query<{ sum: string | null }>(
+      `SELECT COALESCE(SUM(amount), 0) as sum
+       FROM payments
+       WHERE paid_at >= NOW() - INTERVAL '1 month'
+         AND status = 'completed'`
+    );
+    return parseFloat(result.rows[0].sum || '0');
   }
 }

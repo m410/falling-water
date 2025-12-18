@@ -1,0 +1,230 @@
+
+// This document shows a minimal, production-ready Angular dashboard layout
+// using Bootstrap 5 with:
+// - Top navbar with global search
+// - Left sidebar that can collapse to icons
+// - Content outlet
+
+// ==============================
+// app.component.html
+// ==============================
+
+<app-navbar
+  (toggleSidebar)="toggleSidebar()"
+  (openFlyout)="openFlyout()"
+></app-navbar>
+
+<div class="d-flex">
+  <app-sidebar
+  [mode]="sidebarMode"
+  (closeFlyout)="closeFlyout()"
+></app-sidebar>
+
+  <main class="flex-grow-1 p-4 content-area">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+
+// ==============================
+// app.component.ts
+// ==============================
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html'
+})
+export class AppComponent {
+  sidebarMode: 'open' | 'icon' | 'flyout' = 'open';
+
+  toggleSidebar(): void {
+    if (this.sidebarMode === 'open') {
+      this.sidebarMode = 'icon';
+    } else if (this.sidebarMode === 'icon') {
+      this.sidebarMode = 'open';
+    }
+  }
+
+  openFlyout(): void {
+    this.sidebarMode = 'flyout';
+  }
+
+  closeFlyout(): void {
+    if (this.sidebarMode === 'flyout') {
+      this.sidebarMode = 'icon';
+    }
+  }
+}
+
+// ==============================
+// navbar.component.ts
+// ==============================
+
+import { Component, EventEmitter, Output } from '@angular/core';
+
+@Component({
+  selector: 'app-navbar',
+  templateUrl: './navbar.component.html'
+})
+export class NavbarComponent {
+  @Output() toggleSidebar = new EventEmitter<void>();
+  @Output() openFlyout = new EventEmitter<void>();
+}
+
+// ==============================
+// navbar.component.html
+// ==============================
+
+<nav class="navbar navbar-dark bg-dark px-3">
+  <button class="btn btn-outline-light me-3 d-none d-md-inline" (click)="toggleSidebar.emit()">
+  <i class="bi bi-layout-sidebar"></i>
+</button>
+
+<button class="btn btn-outline-light me-3 d-md-none" (click)="openFlyout.emit()">
+  <i class="bi bi-list"></i>
+</button>
+
+  <form class="d-flex flex-grow-1 me-3">
+    <input
+      class="form-control"
+      type="search"
+      placeholder="Global search..."
+    />
+  </form>
+
+  <span class="navbar-text text-light">Dashboard</span>
+</nav>
+
+// ==============================
+// sidebar.component.ts
+// ==============================
+
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss']
+})
+export class SidebarComponent {
+  @Input() mode: 'open' | 'icon' | 'flyout' = 'open';
+  @Output() closeFlyout = new EventEmitter<void>();
+}
+
+// ==============================
+// sidebar.component.html
+// ==============================
+
+<nav
+  class="sidebar bg-light"
+  [class.icon]="mode === 'icon'"
+  [class.flyout]="mode === 'flyout'"
+>
+  <div class="flyout-backdrop" *ngIf="mode === 'flyout'" (click)="closeFlyout.emit()"></div>
+  <ul class="nav flex-column">
+    <li class="nav-item" *ngFor="let item of [
+      { icon: 'bi-speedometer2', label: 'Overview' },
+      { icon: 'bi-bar-chart', label: 'Reports' },
+      { icon: 'bi-gear', label: 'Settings' }
+    ]">
+      <a class="nav-link d-flex align-items-center" href="#">
+        <i class="bi" [ngClass]="item.icon"></i>
+        <span class="ms-2 label">{{ item.label }}</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+// ==============================
+// sidebar.component.scss
+// ==============================
+
+.sidebar {
+  width: 220px;
+  min-height: calc(100vh - 56px);
+  transition: width 0.2s ease, transform 0.25s ease;
+  position: relative;
+
+  .label {
+    transition: opacity 0.15s ease;
+  }
+
+  &.icon {
+    width: 64px;
+
+    .label {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  &.flyout {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    height: calc(100vh - 56px);
+    width: 220px;
+    z-index: 1045;
+    transform: translateX(0);
+  }
+
+  .flyout-backdrop {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: -1;
+  }
+
+  .nav-link {
+    color: #333;
+    padding: 0.75rem 1rem;
+
+    i {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+
+  &.collapsed {
+    width: 64px;
+
+    .label {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  .nav-link {
+    color: #333;
+    padding: 0.75rem 1rem;
+
+    i {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+// ==============================
+// styles.scss (global)
+// ==============================
+
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+.content-area {
+  background: #f8f9fa;
+  min-height: calc(100vh - 56px);
+}
+
+// ==============================
+// Notes
+// ==============================
+// - Uses Bootstrap 5 + Bootstrap Icons
+// - Sidebar collapse is controlled by parent (AppComponent)
+// - Global search is visually wired; hook into a service for real search
+// - Works cleanly in Nx or standard Angular CLI projects

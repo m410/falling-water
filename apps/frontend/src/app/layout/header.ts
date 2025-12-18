@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { AuthService } from '@falling-water/shared/auth';
+import { AuthService } from '@falling-water/share';
 
 @Component({
   selector: 'app-header',

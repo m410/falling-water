@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@falling-water/shared/auth": ["libs/shared/auth/src/index.ts"]
+      "@falling-water/share": ["libs/share/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

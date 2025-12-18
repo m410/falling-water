@@ -2,11 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "files": [],
   "include": ["**/*.ts"],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    }
-  ],
+  "references": [],
   "compilerOptions": {
     "target": "ES2022",
     "module": "commonjs",

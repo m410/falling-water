@@ -6,7 +6,7 @@ import {
 import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { authInterceptor, AUTH_CONFIG } from '@falling-water/shared/auth';
+import { authInterceptor, AUTH_CONFIG } from '@falling-water/share';
 
 export const appConfig: ApplicationConfig = {
   providers: [

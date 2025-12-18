@@ -2,12 +2,13 @@ import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from '@falling-water/shared/auth';
+import { AuthService } from '@falling-water/share';
+import { Field, form } from '@angular/forms/signals';
 
 @Component({
   selector: 'bo-login',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [Field],
   templateUrl: './login.html',
 })
 export class Login {
@@ -15,8 +16,6 @@ export class Login {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
-  protected username = signal('');
-  protected password = signal('');
   protected error = signal<string | null>(null);
   protected loading = signal(false);
 
@@ -31,11 +30,21 @@ export class Login {
     }
   }
 
-  protected onSubmit(): void {
+  protected readonly login = signal({
+    username: '',
+    password: '',
+  })
+
+  protected readonly form = form(this.login)
+
+  protected onSubmit($event: Event): void {
+    $event.preventDefault();
+    $event.stopPropagation();
+
     this.error.set(null);
     this.loading.set(true);
 
-    this.authService.login(this.username(), this.password()).subscribe({
+    this.authService.login(this.form().value().username, this.form().value().password).subscribe({
       next: () => {
         if (this.authService.isAdmin()) {
           this.router.navigate(['/']);

@@ -18,6 +18,8 @@ import { ReviewEndpoints } from './review/review.endpoints';
 import { createReviewRoutes } from './review/review.routes';
 import { ShoppingCartItemEndpoints } from './shopping-cart-item/shopping-cart-item.endpoints';
 import { createShoppingCartItemRoutes } from './shopping-cart-item/shopping-cart-item.routes';
+import { SystemEndpoints } from './system/system.endpoints';
+import { createSystemRoutes } from './system/system.routes';
 import { createContainer } from './service.container';
 import { AuthEndpoints } from './auth/auth.endpoints';
 import { createAuthRoutes } from './auth/auth.routes';
@@ -63,6 +65,9 @@ export function createApp(container: ServiceContainer): Express {
   )));
   app.use('/api/shopping-cart-items', createShoppingCartItemRoutes(new ShoppingCartItemEndpoints(
     container.shoppingCartItemService
+  )));
+  app.use('/api/systems', createSystemRoutes(new SystemEndpoints(
+    container.systemService
   )));
 
   app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

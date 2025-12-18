@@ -5,7 +5,7 @@ import { authenticateToken, authorizeRoles } from '../auth/auth';
 export function createReviewRoutes(controller: ReviewEndpoints): Router {
   const router = Router();
 
-  router.get('/', authenticateToken, authorizeRoles('user'), controller.findAll);
+  router.get('/', authenticateToken, authorizeRoles('user'), controller.findPage);
   router.get('/:id', authenticateToken, authorizeRoles('user'), controller.findById);
   router.post('/', authenticateToken, authorizeRoles('user'), controller.create);
   router.put('/:id', authenticateToken, authorizeRoles('user'), controller.update);

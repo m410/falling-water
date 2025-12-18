@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { authGuard } from '@falling-water/shared/auth';
+import { authGuard } from '@falling-water/share';
 
 export const appRoutes: Route[] = [
   {

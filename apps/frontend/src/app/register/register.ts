@@ -1,8 +1,9 @@
 import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from '@falling-water/shared/auth';
+import { AuthService } from '@falling-water/share';
 import { Field, form } from '@angular/forms/signals';
+import { NgxPasswordStrengthMeter } from 'ngx-password-strength-meter';
 
 interface RegisterResponse {
   token: string;
@@ -11,7 +12,7 @@ interface RegisterResponse {
 
 @Component({
   standalone: true,
-  imports: [Field, RouterLink],
+  imports: [Field, NgxPasswordStrengthMeter, RouterLink],
   templateUrl: './register.html',
   encapsulation: ViewEncapsulation.None,
 })

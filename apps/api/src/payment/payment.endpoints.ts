@@ -13,6 +13,17 @@ export class PaymentEndpoints {
     }
   };
 
+  findPage = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const page = parseInt(req.query.page as string) || 1;
+      const pageSize = parseInt(req.query.pageSize as string) || 10;
+      const result = await this.paymentService.findPage(page, pageSize);
+      res.json(result);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   findById = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = parseInt(req.params.id);
@@ -62,6 +73,15 @@ export class PaymentEndpoints {
       }
 
       res.status(204).send();
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  sumLastMonth = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const sum = await this.paymentService.sumLastMonth();
+      res.json({ sum });
     } catch (error) {
       next(error);
     }

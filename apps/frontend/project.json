@@ -20,7 +20,12 @@
             "input": "apps/frontend/public"
           }
         ],
-        "styles": ["apps/frontend/src/scss/styles.scss"]
+        "styles": ["apps/frontend/src/scss/styles.scss"],
+        "stylePreprocessorOptions": {
+          "sass": {
+            "silenceDeprecations": ["import"]
+          }
+        }
       },
       "configurations": {
         "production": {

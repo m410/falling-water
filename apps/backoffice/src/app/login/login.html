@@ -15,33 +15,27 @@
             </div>
           }
 
-          <form (ngSubmit)="onSubmit()">
-            <div class="mb-3">
-              <label for="username" class="form-label">Username</label>
+          <form (submit)="onSubmit($event)">
+            <div class="form-floating mb-3">
               <input
                 type="text"
                 class="form-control"
                 id="username"
-                [ngModel]="username()"
-                (ngModelChange)="username.set($event)"
-                name="username"
-                required
+                [field]="form.username"
                 autocomplete="username"
               />
+              <label for="username">Username</label>
             </div>
 
-            <div class="mb-3">
-              <label for="password" class="form-label">Password</label>
+            <div class="form-floating mb-3">
               <input
                 type="password"
                 class="form-control"
                 id="password"
-                [ngModel]="password()"
-                (ngModelChange)="password.set($event)"
-                name="password"
-                required
+                [field]="form.password"
                 autocomplete="current-password"
               />
+              <label for="password">Password</label>
             </div>
 
             <button

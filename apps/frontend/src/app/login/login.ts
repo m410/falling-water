@@ -2,7 +2,7 @@ import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '@falling-water/shared/auth';
+import { AuthService } from '@falling-water/share';
 import { Field, form } from '@angular/forms/signals';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { authGuard, adminGuard } from '@falling-water/shared/auth';
+import { authGuard, adminGuard } from '@falling-water/share';
 
 export const appRoutes: Route[] = [
   {
@@ -25,9 +25,70 @@ export const appRoutes: Route[] = [
         title: 'Backoffice - Users',
       },
       {
+        path: 'categories',
+        loadComponent: () =>
+          import('./categories/category-list').then((m) => m.CategoryList),
+        title: 'Backoffice - Categories',
+      },
+      {
+        path: 'categories/new',
+        loadComponent: () =>
+          import('./categories/category-form').then((m) => m.CategoryForm),
+        title: 'Backoffice - New Category',
+      },
+      {
+        path: 'categories/:id/edit',
+        loadComponent: () =>
+          import('./categories/category-form').then((m) => m.CategoryForm),
+        title: 'Backoffice - Edit Category',
+      },
+      {
+        path: 'products',
+        loadComponent: () =>
+          import('./products/product-list').then((m) => m.ProductList),
+        title: 'Backoffice - Products',
+      },
+      {
+        path: 'products/new',
+        loadComponent: () =>
+          import('./products/product-form').then((m) => m.ProductForm),
+        title: 'Backoffice - New Product',
+      },
+      {
+        path: 'products/:id/edit',
+        loadComponent: () =>
+          import('./products/product-form').then((m) => m.ProductForm),
+        title: 'Backoffice - Edit Product',
+      },
+      {
         path: 'orders',
-        loadComponent: () => import('./orders/orders').then((m) => m.Orders),
+        loadComponent: () =>
+          import('./orders/order-list').then((m) => m.OrderList),
         title: 'Backoffice - Orders',
+      },
+      {
+        path: 'orders/:id',
+        loadComponent: () =>
+          import('./orders/order-detail').then((m) => m.OrderDetail),
+        title: 'Backoffice - Order Details',
+      },
+      {
+        path: 'systems',
+        loadComponent: () =>
+          import('./systems/system-list').then((m) => m.SystemList),
+        title: 'Backoffice - Systems',
+      },
+      {
+        path: 'systems/new',
+        loadComponent: () =>
+          import('./systems/system-form').then((m) => m.SystemForm),
+        title: 'Backoffice - New System',
+      },
+      {
+        path: 'systems/:id/edit',
+        loadComponent: () =>
+          import('./systems/system-form').then((m) => m.SystemForm),
+        title: 'Backoffice - Edit System',
       },
     ],
   },

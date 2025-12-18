@@ -1,6 +1,6 @@
 import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
-import { AuthService } from '@falling-water/shared/auth';
+import { AuthService } from '@falling-water/share';
 import { Router } from '@angular/router';
 
 @Component({

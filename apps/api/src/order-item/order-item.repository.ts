@@ -17,6 +17,14 @@ export class OrderItemRepository {
     return result.rows[0] || null;
   }
 
+  async findByOrderId(orderId: number): Promise<OrderItem[]> {
+    const result = await this.db.query<OrderItem>(
+      'SELECT * FROM order_items WHERE order_id = $1 ORDER BY id',
+      [orderId]
+    );
+    return result.rows;
+  }
+
   async create(data: CreateOrderItemDTO): Promise<OrderItem> {
     const result = await this.db.query<OrderItem>(
       `INSERT INTO order_items (order_id, product_id, quantity, unit_price)

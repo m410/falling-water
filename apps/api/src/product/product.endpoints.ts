@@ -13,6 +13,17 @@ export class ProductEndpoints {
     }
   };
 
+  findPage = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const page = parseInt(req.query.page as string) || 1;
+      const pageSize = parseInt(req.query.pageSize as string) || 10;
+      const result = await this.productService.findPage(page, pageSize);
+      res.json(result);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   findById = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = parseInt(req.params.id);

@@ -28,6 +28,16 @@ export class OrderItemEndpoints {
     }
   };
 
+  findByOrderId = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const orderId = parseInt(req.params.orderId);
+      const orderItems = await this.orderItemService.findByOrderId(orderId);
+      res.json(orderItems);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   create = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const orderItem = await this.orderItemService.create(req.body);
