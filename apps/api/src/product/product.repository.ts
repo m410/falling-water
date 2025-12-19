@@ -1,5 +1,6 @@
 import { Pool } from 'pg';
 import { Product, ProductImage, CreateProductDTO, UpdateProductDTO } from './product';
+import { ProductAudit } from './product-audit';
 import { PagedResult } from '../shared/types';
 
 interface ProductRow {
@@ -9,6 +10,7 @@ interface ProductRow {
   price: number;
   stock_quantity: number;
   category_id: number | null;
+  source: string | null;
   created_at: Date;
   updated_at: Date;
 }
@@ -113,8 +115,8 @@ export class ProductRepository {
       await client.query('BEGIN');
 
       const productResult = await client.query<ProductRow>(
-        `INSERT INTO products (name, description, price, stock_quantity, category_id)
-         VALUES ($1, $2, $3, $4, $5)
+        `INSERT INTO products (name, description, price, stock_quantity, category_id, source)
+         VALUES ($1, $2, $3, $4, $5, $6)
          RETURNING *`,
         [
           productData.name,
@@ -122,6 +124,7 @@ export class ProductRepository {
           productData.price,
           productData.stock_quantity ?? 0,
           productData.category_id || null,
+          productData.source || null,
         ]
       );
 
@@ -180,6 +183,10 @@ export class ProductRepository {
       if (productData.category_id !== undefined) {
         fields.push(`category_id = $${paramCount++}`);
         values.push(productData.category_id);
+      }
+      if (productData.source !== undefined) {
+        fields.push(`source = $${paramCount++}`);
+        values.push(productData.source);
       }
 
       let product: ProductRow | null = null;
@@ -242,5 +249,23 @@ export class ProductRepository {
   async delete(id: number): Promise<boolean> {
     const result = await this.db.query('DELETE FROM products WHERE id = $1', [id]);
     return (result.rowCount ?? 0) > 0;
+  }
+
+  async findAuditHistory(productId: number): Promise<ProductAudit[]> {
+    const result = await this.db.query<ProductAudit & { username: string | null }>(
+      `SELECT
+        pa.*,
+        u.email as username
+      FROM product_audits pa
+      LEFT JOIN users u ON pa.changed_by = u.id
+      WHERE pa.product_id = $1
+      ORDER BY pa.changed_at DESC`,
+      [productId]
+    );
+
+    return result.rows.map(row => ({
+      ...row,
+      changed_by_username: row.username || undefined,
+    }));
   }
 }

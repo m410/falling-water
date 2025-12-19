@@ -85,14 +85,23 @@ import { CategoryService, Category } from '@falling-water/share';
                   </td>
                   <td class="text-end">
                     <a
+                      [routerLink]="['/products', product.id]"
+                      class="btn btn-sm btn-outline-secondary me-1"
+                      title="View Details"
+                    >
+                      <i class="bi bi-eye"></i>
+                    </a>
+                    <a
                       [routerLink]="['/products', product.id, 'edit']"
                       class="btn btn-sm btn-outline-primary me-1"
+                      title="Edit"
                     >
                       <i class="bi bi-pencil"></i>
                     </a>
                     <button
                       class="btn btn-sm btn-outline-danger"
                       (click)="deleteProduct(product)"
+                      title="Delete"
                     >
                       <i class="bi bi-trash"></i>
                     </button>

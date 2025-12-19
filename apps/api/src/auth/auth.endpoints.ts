@@ -61,7 +61,7 @@ export class AuthEndpoints {
       }
       const payload = { id: user.id, username: user.email, roles: user.roles };
       const token = jwt.sign(payload, process.env.JWT_SECRET!, {
-        expiresIn: '1h',
+        expiresIn: '20m',
       });
 
       res.json({ token });

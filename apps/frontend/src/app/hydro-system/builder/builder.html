@@ -7,7 +7,7 @@
             <input
               [field]="powerOutputForm.flowRate"
               type="number"
-              class="form-control"
+              class="fwe form-control"
               id="flowRate"
               placeholder=" "
               [class.is-invalid]="!powerOutputForm.flowRate().valid()"
@@ -20,7 +20,7 @@
           <div class="form-floating form-select-floating">
             <select
               [field]="powerOutputForm.flowRateUnit"
-              class="form-select"
+              class="fwe form-select"
               id="flowRateUnit"
               placeholder=" "
               [class.is-invalid]="!powerOutputForm.flowRateUnit().valid()"
@@ -45,7 +45,7 @@
               type="number"
               [class.is-invalid]="!powerOutputForm.headerHeight().valid()"
               [class.is-valid]="powerOutputForm.headerHeight().valid()"
-              class="form-control"
+              class="fwe form-control"
               id="headHeight"
               placeholder=" "
             />
@@ -56,7 +56,7 @@
           <div class="form-floating form-select-floating">
             <select
               [field]="powerOutputForm.headerHeightUnit"
-              class="form-select"
+              class="fwe form-select"
               id="headerHeightUnit"
               [class.is-invalid]="!powerOutputForm.headerHeightUnit().valid()"
               [class.is-valid]="powerOutputForm.headerHeightUnit().valid()"
@@ -78,7 +78,7 @@
             <input
               [field]="powerOutputForm.efficiency"
               type="number"
-              class="form-control"
+              class="fwe form-control"
               id="efficiency"
               placeholder=" "
               [class.is-invalid]="!powerOutputForm.efficiency().valid()"
@@ -105,7 +105,7 @@
       <button
         type="submit"
         class="btn btn-primary btn-lg shadow"
-        
+
       >
       <!-- [class.btn-success]="powerOutputForm.valid()" -->
         Calculate Power Output

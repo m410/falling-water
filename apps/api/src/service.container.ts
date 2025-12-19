@@ -9,7 +9,9 @@ import { PaymentRepository } from './payment/payment.repository';
 import { ReviewRepository } from './review/review.repository';
 import { ShoppingCartItemRepository } from './shopping-cart-item/shopping-cart-item.repository';
 import { SystemRepository } from './system/system.repository';
+import { FileRepository } from './file/file.repository';
 import { Pool } from 'pg';
+import * as path from 'path';
 
 export interface ServiceContainer {
   userService: UserRepository;
@@ -23,6 +25,8 @@ export interface ServiceContainer {
   reviewService: ReviewRepository;
   shoppingCartItemService: ShoppingCartItemRepository;
   systemService: SystemRepository;
+  fileService: FileRepository;
+  storageDir: string;
   db: Pool;
 }
 
@@ -39,6 +43,10 @@ export function createContainer(db: Pool): ServiceContainer {
   const shoppingCartItemService = new ShoppingCartItemRepository(db);
   const systemService = new SystemRepository(db);
 
+  // File storage - resolve path relative to project root
+  const storageDir = path.resolve(process.cwd(), 'storage');
+  const fileService = new FileRepository(storageDir);
+
   return {
     userService,
     emailService,
@@ -51,6 +59,8 @@ export function createContainer(db: Pool): ServiceContainer {
     reviewService,
     shoppingCartItemService,
     systemService,
+    fileService,
+    storageDir,
     db,
   };
 }

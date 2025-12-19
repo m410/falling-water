@@ -1,0 +1,8 @@
+export interface Payment {
+  id: number;
+  order_id: number | null;
+  payment_method: string;
+  amount: number;
+  status: string;
+  paid_at: Date | null;
+}

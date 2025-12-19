@@ -48,9 +48,9 @@ export class Label {
         if(elem) {
           this.id.set(elem.id)
           if(elem instanceof HTMLSelectElement){
-            elem.setAttribute('class', 'form-select')
+            elem.classList.add('fwe', 'form-select');
           } else {
-            elem.setAttribute('class', 'form-control')
+            elem.classList.add('fwe','form-control');
           }
         }
       }

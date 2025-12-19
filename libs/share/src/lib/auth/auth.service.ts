@@ -1,17 +1,11 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { LoginResponse } from './login-response';
+import { TokenPayload } from './token-payload';
 
-export interface LoginResponse {
-  token: string;
-}
-
-export interface TokenPayload {
-  id: number;
-  username: string;
-  roles: string[];
-  exp: number;
-}
+export type { LoginResponse } from './login-response';
+export type { TokenPayload } from './token-payload';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +19,10 @@ export class AuthService {
   readonly isAuthenticated = computed(() => this.userSignal() !== null);
   readonly isAdmin = computed(() => this.userSignal()?.roles.includes('admin') ?? false);
   readonly roles = computed(() => this.userSignal()?.roles ?? []);
+
+  constructor() {
+    this.loadStoredToken();
+  }
 
   login(email: string, password: string): Observable<LoginResponse> {
     return this.http

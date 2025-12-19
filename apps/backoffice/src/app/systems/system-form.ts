@@ -36,7 +36,7 @@ import { Field, form } from '@angular/forms/signals';
                 <fwe-label [label]="'Name'">
                   <input
                     type="text"
-                    class="form-control"
+                    class="fwe form-control"
                     id="name"
                     [field]="form.name"
                   />
@@ -44,7 +44,7 @@ import { Field, form } from '@angular/forms/signals';
 
                 <fwe-label [label]="'Description'">
                   <textarea
-                    class="form-control"
+                    class="fwe form-control"
                     id="description"
                     [field]="form.description"
                     rows="3"
@@ -56,7 +56,7 @@ import { Field, form } from '@angular/forms/signals';
                     <fwe-label [label]="'Min flow rate'">
                       <input
                         type="number"
-                        class="form-control"
+                        class="fwe form-control"
                         id="minFlowRate"
                         [field]="form.min_flow_rate_cms"
                       />
@@ -66,7 +66,7 @@ import { Field, form } from '@angular/forms/signals';
                     <fwe-label [label]="'Max flow rate'">
                       <input
                         type="number"
-                        class="form-control"
+                        class="fwe form-control"
                         id="maxFlowRate"
                         [field]="form.max_flow_rate_cms"
                         step="0.01"
@@ -80,7 +80,7 @@ import { Field, form } from '@angular/forms/signals';
                     <fwe-label [label]="'Min head'">
                       <input
                         type="number"
-                        class="form-control"
+                        class="fwe form-control"
                         id="minHead"
                         [field]="form.min_head_mt"
                         step="0.01"
@@ -91,7 +91,7 @@ import { Field, form } from '@angular/forms/signals';
                     <fwe-label [label]="'Max head'">
                       <input
                         type="number"
-                        class="form-control"
+                        class="fwe form-control"
                         id="maxHead"
                         [field]="form.max_head_mt"
                         step="0.01"
@@ -102,7 +102,7 @@ import { Field, form } from '@angular/forms/signals';
 
                 <fwe-label [label]="'Status'">
                   <select
-                    class="form-select"
+                    class="fwe form-select"
                     id="status"
                     [field]="form.status"
                   >
@@ -143,7 +143,7 @@ import { Field, form } from '@angular/forms/signals';
             </div>
 
             <fwe-submit-button
-              [disabled]="form.invalid()"
+              [disabled]="form().invalid()"
               [saving]="saving()"
               [isEdit]="isEdit()"
               [entityName]="'System'"

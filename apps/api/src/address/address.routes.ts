@@ -6,6 +6,7 @@ export function createAddressRoutes(controller: AddressEndpoints): Router {
   const router = Router();
 
   router.get('/', authenticateToken, authorizeRoles('user'), controller.findAll);
+  router.get('/user/:userId', authenticateToken, authorizeRoles('user'), controller.findByUserId);
   router.get('/:id', authenticateToken, authorizeRoles('user'), controller.findById);
   router.post('/', authenticateToken, authorizeRoles('user'), controller.create);
   router.put('/:id', authenticateToken, authorizeRoles('user'), controller.update);

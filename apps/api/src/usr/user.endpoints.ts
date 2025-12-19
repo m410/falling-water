@@ -1,12 +1,14 @@
 import { UserRepository } from "./user.repository";
 import { EmailService } from "./user.email";
+import { AddressRepository } from "../address/address.repository";
 import {  Request, Response, NextFunction } from 'express';
 
 
 export class UserEndpoints {
   constructor(
     private userService: UserRepository,
-    private emailService: EmailService
+    private emailService: EmailService,
+    private addressService: AddressRepository
   ) {}
 
   findAll = async (req: Request, res: Response, next: NextFunction) => {
@@ -75,12 +77,28 @@ export class UserEndpoints {
     try {
       const id = parseInt(req.params.id);
       const deleted = await this.userService.delete(id);
-      
+
       if (!deleted) {
         return res.status(404).json({ error: 'User not found' });
       }
-      
+
       res.status(204).send();
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  getAddresses = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userId = parseInt(req.params.id);
+      const user = await this.userService.findById(userId);
+
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      const addresses = await this.addressService.findByUserId(userId);
+      res.json(addresses);
     } catch (error) {
       next(error);
     }

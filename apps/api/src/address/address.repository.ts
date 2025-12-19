@@ -17,6 +17,14 @@ export class AddressRepository {
     return result.rows[0] || null;
   }
 
+  async findByUserId(userId: number): Promise<Address[]> {
+    const result = await this.db.query<Address>(
+      'SELECT * FROM addresses WHERE user_id = $1 ORDER BY id',
+      [userId]
+    );
+    return result.rows;
+  }
+
   async create(data: CreateAddressDTO): Promise<Address> {
     const result = await this.db.query<Address>(
       `INSERT INTO addresses (user_id, type, street, city, state, postal_code, country)

@@ -55,6 +55,12 @@ export const appRoutes: Route[] = [
         title: 'Backoffice - New Product',
       },
       {
+        path: 'products/:id',
+        loadComponent: () =>
+          import('./products/product-detail').then((m) => m.ProductDetail),
+        title: 'Backoffice - Product Details',
+      },
+      {
         path: 'products/:id/edit',
         loadComponent: () =>
           import('./products/product-form').then((m) => m.ProductForm),

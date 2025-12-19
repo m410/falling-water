@@ -1,15 +1,3 @@
-export interface Category {
-  id: number;
-  name: string;
-  parent_id: number | null;
-}
-
-export interface CreateCategoryDTO {
-  name: string;
-  parent_id?: number;
-}
-
-export interface UpdateCategoryDTO {
-  name?: string;
-  parent_id?: number;
-}
+export { Category } from './category-entity';
+export { CreateCategoryDTO } from './create-category-dto';
+export { UpdateCategoryDTO } from './update-category-dto';

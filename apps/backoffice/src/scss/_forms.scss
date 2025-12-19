@@ -1,0 +1,15 @@
+
+.fwe.form-control, .fwe.form-select {
+  &:focus {
+    border-bottom: 2px solid $secondary;
+    border-radius: 1rem 1rem 0 0;
+  }
+  &.is-valid {
+    border-bottom: 2px solid $success;
+    border-radius: 1rem 1rem 0 0;
+  }
+  &.is-invalid {
+    border-bottom: 2px solid $danger;
+    border-radius: 1rem 1rem 0 0;
+  }
+}

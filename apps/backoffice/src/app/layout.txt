@@ -87,7 +87,7 @@ export class NavbarComponent {
 
   <form class="d-flex flex-grow-1 me-3">
     <input
-      class="form-control"
+      class="fwe form-control"
       type="search"
       placeholder="Global search..."
     />

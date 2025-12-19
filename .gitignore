@@ -47,3 +47,7 @@ Thumbs.db
 
 vitest.config.*.timestamp*
 /generated/prisma
+
+# Uploaded files storage
+/storage/*
+!/storage/.gitkeep

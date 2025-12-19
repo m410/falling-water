@@ -77,4 +77,14 @@ export class ProductEndpoints {
       next(error);
     }
   };
+
+  getAuditHistory = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const id = parseInt(req.params.id);
+      const audits = await this.productService.findAuditHistory(id);
+      res.json(audits);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

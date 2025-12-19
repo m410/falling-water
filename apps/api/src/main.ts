@@ -20,6 +20,8 @@ import { ShoppingCartItemEndpoints } from './shopping-cart-item/shopping-cart-it
 import { createShoppingCartItemRoutes } from './shopping-cart-item/shopping-cart-item.routes';
 import { SystemEndpoints } from './system/system.endpoints';
 import { createSystemRoutes } from './system/system.routes';
+import { FileEndpoints } from './file/file.endpoints';
+import { createFileRoutes } from './file/file.routes';
 import { createContainer } from './service.container';
 import { AuthEndpoints } from './auth/auth.endpoints';
 import { createAuthRoutes } from './auth/auth.routes';
@@ -40,7 +42,8 @@ export function createApp(container: ServiceContainer): Express {
   
   app.use('/api/users', createUserRoutes(new UserEndpoints(
     container.userService,
-    container.emailService
+    container.emailService,
+    container.addressService
   )));
   app.use('/api/products', createProductRoutes(new ProductEndpoints(
     container.productService
@@ -69,6 +72,10 @@ export function createApp(container: ServiceContainer): Express {
   app.use('/api/systems', createSystemRoutes(new SystemEndpoints(
     container.systemService
   )));
+  app.use('/api/files', createFileRoutes(
+    new FileEndpoints(container.fileService),
+    container.storageDir
+  ));
 
   app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     console.error('Error:', err);

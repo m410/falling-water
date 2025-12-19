@@ -28,6 +28,16 @@ export class AddressEndpoints {
     }
   };
 
+  findByUserId = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userId = parseInt(req.params.userId);
+      const addresses = await this.addressService.findByUserId(userId);
+      res.json(addresses);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   create = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const address = await this.addressService.create(req.body);

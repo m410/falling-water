@@ -2,44 +2,17 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PagedResult } from '../../../../../apps/backoffice/src/app/shared/types';
+import { ProductImage } from './product-image';
+import { Product } from './product-entity';
+import { CreateProductDTO } from './create-product-dto';
+import { UpdateProductDTO } from './update-product-dto';
+import { ProductAudit } from './product-audit';
 
-export interface ProductImage {
-  id: number;
-  product_id: number;
-  image_url: string;
-  display_order: number;
-  created_at: Date;
-}
-
-export interface Product {
-  id: number;
-  name: string;
-  description: string | null;
-  price: number;
-  stock_quantity: number;
-  category_id: number | null;
-  created_at: Date;
-  updated_at: Date;
-  images: ProductImage[];
-}
-
-export interface CreateProductDTO {
-  name: string;
-  description: string;
-  price: number;
-  stock_quantity: number;
-  category_id: number | null;
-  images?: { image_url: string; display_order?: number }[];
-}
-
-export interface UpdateProductDTO {
-  name?: string;
-  description?: string;
-  price?: number;
-  stock_quantity?: number;
-  category_id?: number;
-  images?: { id?: number; image_url: string; display_order?: number }[];
-}
+export type { ProductImage } from './product-image';
+export type { Product } from './product-entity';
+export type { CreateProductDTO } from './create-product-dto';
+export type { UpdateProductDTO } from './update-product-dto';
+export type { ProductAudit } from './product-audit';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
@@ -68,5 +41,9 @@ export class ProductService {
 
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
+
+  getAuditHistory(id: number): Observable<ProductAudit[]> {
+    return this.http.get<ProductAudit[]>(`${this.baseUrl}/${id}/audits`);
   }
 }
