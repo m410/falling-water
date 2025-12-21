@@ -57,5 +57,10 @@ export const appRoutes: Route[] = [
         title: 'Falling Water - Register',
       },
     ],
+  },
+  {
+    path: 'look',
+    loadComponent: () => import('./look/look').then((m) => m.Look),
+    title: 'Falling Water - Look test',
   }
 ];
