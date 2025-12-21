@@ -1,12 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PagedResult } from '../../../../../apps/backoffice/src/app/shared/types';
-import { ProductImage } from './product-image';
 import { Product } from './product-entity';
 import { CreateProductDTO } from './create-product-dto';
 import { UpdateProductDTO } from './update-product-dto';
 import { ProductAudit } from './product-audit';
+import { PagedResult } from '../paging/page-result';
 
 export type { ProductImage } from './product-image';
 export type { Product } from './product-entity';

@@ -1,0 +1,72 @@
+.fwe.content-area {
+  background: #f8f9fa;
+  min-height: calc(100vh - 56px);
+}
+
+.fwe.sidebar {
+  width: 220px;
+  min-height: calc(100vh - 56px);
+  transition: width 0.2s ease, transform 0.25s ease;
+  position: relative;
+
+  .label {
+    transition: opacity 0.15s ease;
+  }
+
+  &.icon {
+    width: 64px;
+
+    .label {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  &.flyout {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    height: calc(100vh - 56px);
+    width: 220px;
+    z-index: 1045;
+    transform: translateX(0);
+  }
+
+  .flyout-backdrop {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: -1;
+  }
+
+  .nav-link {
+    color: #333;
+    padding: 0.75rem 1rem;
+
+    i {
+      font-size: 1.2rem;
+    }
+  }
+
+
+  &.collapsed {
+    width: 64px;
+
+    .label {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  .nav-link {
+    color: #333;
+    padding: 0.75rem 1rem;
+
+    i {
+      font-size: 1.2rem;
+    }
+  }
+}

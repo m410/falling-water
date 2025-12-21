@@ -14,4 +14,11 @@ export interface CreateUserDTO {
   name: string;
   email: string;
   password: string;
+  address?: {
+    street: string;
+    city: string;
+    state?: string;
+    postal_code: string;
+    country: string;
+  };
 }

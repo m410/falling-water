@@ -1,0 +1,40 @@
+<div ngCombobox filterMode="auto-select">
+  <div #origin class="autocomplete">
+    <div class="input-group mb-3">
+      <input
+        style="border: 0; border-bottom: 2px solid var(--bs-secondary); border-radius: 0"
+        class="fwe form-control w-100"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+        id="menu-search"
+        [(ngModel)]="query"
+        ngComboboxInput/>
+      <button
+        style="border: 0; border-bottom: 2px solid var(--bs-secondary); border-radius: 0"
+        class="btn btn-outline-success" type="submit">
+        <span class="bi bi-search"></span></button>
+      <label class="visually-hidden" for="menu-seaerch">Search</label>
+    </div>
+  </div>
+  <ng-template ngComboboxPopupContainer>
+    <ng-template
+      [cdkConnectedOverlay]="{origin, usePopover: 'inline', matchWidth: true}"
+      [cdkConnectedOverlayOpen]="true"
+    >
+      <div class="popup">
+        @if (countries().length === 0) {
+          <div class="no-results">No results found</div>
+        }
+        <div ngListbox>
+          @for (country of countries(); track country) {
+            <div ngOption [value]="country" [label]="country">
+              <span class="option-label">{{ country }}</span>
+              <span class="icon bi bi-check"></span>
+            </div>
+          }
+        </div>
+      </div>
+    </ng-template>
+  </ng-template>
+</div>

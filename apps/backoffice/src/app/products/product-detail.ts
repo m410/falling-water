@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
+import { Component, inject, signal, OnInit, ViewEncapsulation } from '@angular/core';
 import { CommonModule, CurrencyPipe, DatePipe, JsonPipe } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ProductService, Product, ProductAudit } from '@falling-water/share';
@@ -7,6 +7,7 @@ import { CategoryService, Category } from '@falling-water/share';
 @Component({
   selector: 'bo-product-detail',
   standalone: true,
+  encapsulation: ViewEncapsulation.None,
   imports: [CommonModule, RouterLink, CurrencyPipe, DatePipe, JsonPipe],
   template: `
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -15,7 +16,7 @@ import { CategoryService, Category } from '@falling-water/share';
           <i class="bi bi-arrow-left me-1"></i>
           Back to Products
         </a>
-        <h2 class="mb-0">{{ product()?.name || 'Product Details' }}</h2>
+        <h1 class="display-1 mb-0">{{ product()?.name || 'Product Details' }}</h1>
       </div>
       @if (product()) {
         <a [routerLink]="['/products', product()!.id, 'edit']" class="btn btn-primary">
@@ -151,7 +152,7 @@ import { CategoryService, Category } from '@falling-water/share';
           </div>
         } @else {
           <div class="table-responsive">
-            <table class="table table-hover mb-0">
+            <table class="table table-hover table-striped mb-0">
               <thead class="table-light">
                 <tr>
                   <th>Date</th>

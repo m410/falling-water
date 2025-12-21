@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PagedResult } from '../../../../../apps/backoffice/src/app/shared/types';
+import { PagedResult } from '../paging/page-result';
 
 export interface Order {
   id: number;

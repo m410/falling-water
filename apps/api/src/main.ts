@@ -1,4 +1,5 @@
 import express, { Express, Request, Response, NextFunction } from 'express';
+import * as path from 'path';
 import { ServiceContainer } from './service.container';
 import { UserEndpoints } from './usr/user.endpoints';
 import { createUserRoutes } from './usr/user.routes';
@@ -22,6 +23,10 @@ import { SystemEndpoints } from './system/system.endpoints';
 import { createSystemRoutes } from './system/system.routes';
 import { FileEndpoints } from './file/file.endpoints';
 import { createFileRoutes } from './file/file.routes';
+import { SupplierEndpoints } from './supplier/supplier.endpoints';
+import { createSupplierRoutes } from './supplier/supplier.routes';
+import { ImageEndpoints } from './image/image.endpoints';
+import { createImageRoutes } from './image/image.routes';
 import { createContainer } from './service.container';
 import { AuthEndpoints } from './auth/auth.endpoints';
 import { createAuthRoutes } from './auth/auth.routes';
@@ -36,6 +41,9 @@ export function createApp(container: ServiceContainer): Express {
 
   app.use(express.json());
   app.locals.container = container;
+
+  // Serve static files from storage directory
+  app.use('/storage', express.static(container.storageDir));
 
   app.use('/api', createAuthRoutes(new AuthEndpoints(
     container.userService)));
@@ -74,6 +82,13 @@ export function createApp(container: ServiceContainer): Express {
   )));
   app.use('/api/files', createFileRoutes(
     new FileEndpoints(container.fileService),
+    container.storageDir
+  ));
+  app.use('/api/suppliers', createSupplierRoutes(new SupplierEndpoints(
+    container.supplierService
+  )));
+  app.use('/api/images', createImageRoutes(
+    new ImageEndpoints(),
     container.storageDir
   ));
 

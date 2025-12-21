@@ -1,13 +1,14 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, ViewEncapsulation } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { UserService, OrderService, PaymentService } from '@falling-water/share';
 
 @Component({
   selector: 'bo-dashboard',
   standalone: true,
+  encapsulation: ViewEncapsulation.None,
   imports: [CommonModule, CurrencyPipe],
   template: `
-    <h2>Dashboard</h2>
+    <h1 class="display-1 mb-3">Dashboard</h1>
     <div class="row">
       <div class="col-md-4 mb-3">
         <div class="card bg-primary text-white">

@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
+import { Component, inject, signal, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import {
   CategoryService,
@@ -17,9 +17,10 @@ interface CategoryForm1 {
   selector: 'bo-category-form',
   standalone: true,
   imports: [Field, RouterLink, Label],
+  encapsulation: ViewEncapsulation.None,
   template: `
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2>{{ isEdit() ? 'Edit Category' : 'New Category' }}</h2>
+      <h1 class="display-1 mb-3">{{ isEdit() ? 'Edit Category' : 'New Category' }}</h1>
       <a routerLink="/categories" class="btn btn-outline-secondary">
         <i class="bi bi-arrow-left me-1"></i>
         Back to List

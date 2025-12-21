@@ -8,8 +8,13 @@ export const appRoutes: Route[] = [
     title: 'Backoffice - Login',
   },
   {
+    path: 'logout',
+    loadComponent: () => import('./logout/logout').then((m) => m.Logout),
+    title: 'Backoffice - Logout',
+  },
+  {
     path: '',
-    loadComponent: () => import('./layout/layout').then((m) => m.Layout),
+    loadComponent: () => import('./scaffold/scaffold').then((m) => m.Scaffold),
     canActivate: [authGuard, adminGuard],
     children: [
       {
@@ -21,7 +26,7 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'users',
-        loadComponent: () => import('./users/users').then((m) => m.Users),
+        loadComponent: () => import('./users/user-list').then((m) => m.UserList),
         title: 'Backoffice - Users',
       },
       {
@@ -91,12 +96,49 @@ export const appRoutes: Route[] = [
         title: 'Backoffice - New System',
       },
       {
+        path: 'systems/:id',
+        loadComponent: () =>
+          import('./systems/system-detail').then((m) => m.SystemDetail),
+        title: 'Backoffice - System Details',
+      },
+      {
         path: 'systems/:id/edit',
         loadComponent: () =>
           import('./systems/system-form').then((m) => m.SystemForm),
         title: 'Backoffice - Edit System',
       },
+      {
+        path: 'suppliers',
+        loadComponent: () =>
+          import('./suppliers/supplier-list').then((m) => m.SupplierList),
+        title: 'Backoffice - Suppliers',
+      },
+      {
+        path: 'suppliers/new',
+        loadComponent: () =>
+          import('./suppliers/supplier-form').then((m) => m.SupplierForm),
+        title: 'Backoffice - New Supplier',
+      },
+      {
+        path: 'suppliers/:id/edit',
+        loadComponent: () =>
+          import('./suppliers/supplier-form').then((m) => m.SupplierForm),
+        title: 'Backoffice - Edit Supplier',
+      },
     ],
+  },
+  {
+    path: '',
+    loadComponent: () => import('./scaffold/scaffold').then((m) => m.Scaffold),
+    children: [
+      {
+        path: 'scaffold',
+        loadComponent: () =>
+          import('./scaffold/scaffold-test').then((m) => m.ScaffoldTest),
+        pathMatch: 'full',
+        title: 'Backoffice - Scaffold test',
+      },
+      ]
   },
   {
     path: '**',

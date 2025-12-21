@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit, computed } from '@angular/core';
+import { Component, inject, signal, OnInit, computed, ViewEncapsulation } from '@angular/core';
 import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { OrderService, Order } from '@falling-water/share';
@@ -6,10 +6,11 @@ import { OrderService, Order } from '@falling-water/share';
 @Component({
   selector: 'bo-order-list',
   standalone: true,
+  encapsulation: ViewEncapsulation.None,
   imports: [CommonModule, RouterLink, CurrencyPipe, DatePipe],
   template: `
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2>Orders</h2>
+      <h1 class="display-1 mb-3">Orders</h1>
     </div>
 
     @if (loading()) {
@@ -21,9 +22,8 @@ import { OrderService, Order } from '@falling-water/share';
     } @else if (error()) {
       <div class="alert alert-danger">{{ error() }}</div>
     } @else {
-      <div class="card">
         <div class="table-responsive">
-          <table class="table table-hover mb-0">
+          <table class="table table-hover table-striped mb-0">
             <thead class="table-light">
               <tr>
                 <th>Order ID</th>
@@ -113,7 +113,6 @@ import { OrderService, Order } from '@falling-water/share';
             </nav>
           </div>
         }
-      </div>
     }
   `,
 })

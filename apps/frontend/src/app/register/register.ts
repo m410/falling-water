@@ -1,9 +1,9 @@
-import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
+import { Component, computed, inject, signal, ViewEncapsulation } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '@falling-water/share';
 import { Field, form } from '@angular/forms/signals';
-import { NgxPasswordStrengthMeter } from 'ngx-password-strength-meter';
+import { PasswordStrengthMeterComponent } from 'angular-password-strength-meter';
 
 interface RegisterResponse {
   token: string;
@@ -12,7 +12,7 @@ interface RegisterResponse {
 
 @Component({
   standalone: true,
-  imports: [Field, NgxPasswordStrengthMeter, RouterLink],
+  imports: [Field, RouterLink, PasswordStrengthMeterComponent],
   templateUrl: './register.html',
   encapsulation: ViewEncapsulation.None,
 })
@@ -30,6 +30,13 @@ export class Register {
     email: '',
     password: '',
     passwordConfirm: '',
+    address: {
+      street: '',
+      city: '',
+      state: '',
+      postal_code: '',
+      country: '',
+    },
   })
 
   protected registerForm = form(this.registration, {})
@@ -39,6 +46,10 @@ export class Register {
       this.router.navigate(['/account']);
     }
   }
+
+  protected readonly password = computed(() => {
+    return this.registerForm.password().value()
+  });
 
   protected onSubmit($event: Event): void {
     $event.preventDefault();

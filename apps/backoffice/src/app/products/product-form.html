@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
-  <h2>{{ isEdit() ? 'Edit Product' : 'New Product' }}</h2>
+  <h1 class="display-1 mb-3">{{ isEdit() ? 'Edit Product' : 'New Product' }}</h1>
   <a routerLink="/products" class="btn btn-outline-secondary">
     <i class="bi bi-arrow-left me-1"></i>
     Back to List
@@ -87,38 +87,37 @@
                 class="fwe form-control"
                 id="source"
                 [field]="form.source"
-                maxlength="32"
               />
             </fwe-label>
 
             <!-- Product Images -->
-            <div class="mb-3">
-              <label class="form-label">Product Images</label>
-              @for (image of images(); track $index) {
-                <div class="input-group mb-2">
-                  <input
-                    type="url"
-                    class="fwe form-control"
-                    [field]="form.images[$index].image_url"
-                  />
-                  <button
-                    type="button"
-                    class="btn btn-outline-danger"
-                    (click)="removeImage($index)"
-                  >
-                    <i class="bi bi-trash"></i>
-                  </button>
-                </div>
-              }
-              <button
-                type="button"
-                class="btn btn-outline-secondary btn-sm"
-                (click)="addImage()"
-              >
-                <i class="bi bi-plus-lg me-1"></i>
-                Add Image
-              </button>
-            </div>
+<!--            <div class="mb-3">-->
+<!--              <label class="form-label">Product Images</label>-->
+<!--              @for (image of images(); track $index) {-->
+<!--                <div class="input-group mb-2">-->
+<!--                  <input-->
+<!--                    type="url"-->
+<!--                    class="fwe form-control"-->
+<!--                    [field]="form.images[$index].image_url"-->
+<!--                  />-->
+<!--                  <button-->
+<!--                    type="button"-->
+<!--                    class="btn btn-outline-danger"-->
+<!--                    (click)="removeImage($index)"-->
+<!--                  >-->
+<!--                    <i class="bi bi-trash"></i>-->
+<!--                  </button>-->
+<!--                </div>-->
+<!--              }-->
+<!--              <button-->
+<!--                type="button"-->
+<!--                class="btn btn-outline-secondary btn-sm"-->
+<!--                (click)="addImage()"-->
+<!--              >-->
+<!--                <i class="bi bi-plus-lg me-1"></i>-->
+<!--                Add Image-->
+<!--              </button>-->
+<!--            </div>-->
           </div>
 
           <div class="col-md-4">

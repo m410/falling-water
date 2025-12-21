@@ -50,6 +50,7 @@
                 placeholder="Password"
               />
               <label for="password">Password</label>
+              <password-strength-meter [password]="password()" enableFeedback />
             </div>
 
             <div class="form-floating mb-3">
@@ -62,6 +63,78 @@
                 placeholder="Confirm Password"
               />
               <label for="confirmPassword">Confirm Password</label>
+            </div>
+
+            <h5 class="mt-4 mb-3">Address</h5>
+
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                class="fwe form-control"
+                id="street"
+                [field]="registerForm.address.street"
+                autocomplete="street-address"
+                placeholder="Street Address"
+              />
+              <label for="street">Street Address</label>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="fwe form-control"
+                    id="city"
+                    [field]="registerForm.address.city"
+                    autocomplete="address-level2"
+                    placeholder="City"
+                  />
+                  <label for="city">City</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="fwe form-control"
+                    id="state"
+                    [field]="registerForm.address.state"
+                    autocomplete="address-level1"
+                    placeholder="State/Province"
+                  />
+                  <label for="state">State/Province</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="fwe form-control"
+                    id="postalCode"
+                    [field]="registerForm.address.postal_code"
+                    autocomplete="postal-code"
+                    placeholder="Postal Code"
+                  />
+                  <label for="postalCode">Postal Code</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="fwe form-control"
+                    id="country"
+                    [field]="registerForm.address.country"
+                    autocomplete="country-name"
+                    placeholder="Country"
+                  />
+                  <label for="country">Country</label>
+                </div>
+              </div>
             </div>
 
             <button

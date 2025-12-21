@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -9,6 +9,7 @@ import { Field, form } from '@angular/forms/signals';
   selector: 'bo-login',
   standalone: true,
   imports: [Field],
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './login.html',
 })
 export class Login {

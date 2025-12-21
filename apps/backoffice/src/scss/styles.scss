@@ -1,5 +1,7 @@
 // Custom.scss for Backoffice
 
+@import '@duppla-font/helvetica-now';
+
 // 1. Include functions first
 @import 'bootstrap/scss/functions';
 
@@ -44,7 +46,18 @@ $bootstrap-icons-font-dir: 'bootstrap-icons/font/fonts';
 @import 'bootstrap-icons/font/bootstrap-icons';
 
 // 8. Custom styles for backoffice
-@import 'sidebar';
-@import 'heading-font';
+//@import 'sidebar';
 @import 'forms';
 @import 'floating-label';
+
+
+html, body {
+  height: 100%;
+}
+
+.fwe.nav-link.active {
+  border: none;
+  border-radius: 0;
+  background-color: rgba(from var(--bs-primary) r g b / 0.1);
+  color: var(--bs-secondary);
+}

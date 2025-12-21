@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit, computed } from '@angular/core';
+import { Component, inject, signal, OnInit, computed, ViewEncapsulation } from '@angular/core';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { SystemService, System } from '@falling-water/share';
@@ -6,10 +6,11 @@ import { SystemService, System } from '@falling-water/share';
 @Component({
   selector: 'bo-system-list',
   standalone: true,
+  encapsulation: ViewEncapsulation.None,
   imports: [CommonModule, RouterLink, DecimalPipe],
   template: `
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2>Systems</h2>
+      <h1 class="display-1 mb-3">Systems</h1>
       <a routerLink="/systems/new" class="btn btn-primary">
         <i class="bi bi-plus-lg me-1"></i>
         Add System
@@ -25,9 +26,8 @@ import { SystemService, System } from '@falling-water/share';
     } @else if (error()) {
       <div class="alert alert-danger">{{ error() }}</div>
     } @else {
-      <div class="card">
         <div class="table-responsive">
-          <table class="table table-hover mb-0">
+          <table class="table table-hover table-striped mb-0">
             <thead class="table-light">
               <tr>
                 <th>ID</th>
@@ -44,7 +44,9 @@ import { SystemService, System } from '@falling-water/share';
                 <tr>
                   <td>{{ system.id }}</td>
                   <td>
-                    <strong>{{ system.name }}</strong>
+                    <a [routerLink]="['/systems', system.id]" class="text-decoration-none">
+                      <strong>{{ system.name }}</strong>
+                    </a>
                     @if (system.description) {
                       <br />
                       <small class="text-muted">{{
@@ -71,6 +73,12 @@ import { SystemService, System } from '@falling-water/share';
                     </span>
                   </td>
                   <td class="text-end">
+                    <a
+                      [routerLink]="['/systems', system.id]"
+                      class="btn btn-sm btn-outline-secondary me-1"
+                    >
+                      <i class="bi bi-eye"></i>
+                    </a>
                     <a
                       [routerLink]="['/systems', system.id, 'edit']"
                       class="btn btn-sm btn-outline-primary me-1"
@@ -133,7 +141,6 @@ import { SystemService, System } from '@falling-water/share';
             </nav>
           </div>
         }
-      </div>
     }
   `,
 })

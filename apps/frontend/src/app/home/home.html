@@ -5,14 +5,18 @@
     </div>
   </div> -->
   <div class="row">
-  
+
     <div class="col-9">
-      <h1 class="display-1 my-4">Falling water micro-hydro</h1>
+      <h1 class="display-1 my-4">
+        <img src="falling-water-logo2.svg" alt="logo" style="height: 96px">
+        Falling water</h1>
       <p class="mx-4 my-2">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis
-        sapiente, molestiae iure nulla voluptatum laudantium mollitia
-        dignissimos fuga optio dicta est voluptates, aliquam fugit impedit,
-        maiores voluptatibus reiciendis facere! Doloremque.
+        <strong>falling-water.energy</strong> designs and builds micro-hydro power systems that turn flowing water into dependable,
+        clean electricity. We specialize in efficient, small-scale solutions that work with nature instead of against
+        it—using existing streams, elevation changes, and infrastructure to generate power with minimal environmental
+        impact. Whether for remote sites, resilient homes, or off-grid projects, our systems are engineered for
+        durability, performance, and long-term sustainability, delivering renewable energy where it matters most.
+
       </p>
     </div>
     <div class="col-3">
@@ -27,9 +31,10 @@
     </div>
   </div>
 
-  @if(showForm() && !powerOutput()) {
-  <app-builder (result)="powerOutput.set($event)"></app-builder>
-  } @if (powerOutput()) {
-  <app-system-options [estimatedPower]="powerOutput()!"></app-system-options>
+  @if (showForm() && !powerOutput()) {
+    <app-builder (result)="powerOutput.set($event)"></app-builder>
+  }
+  @if (powerOutput()) {
+    <app-system-options [estimatedPower]="powerOutput()!"></app-system-options>
   }
 </div>

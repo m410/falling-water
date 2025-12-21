@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit, computed } from '@angular/core';
+import { Component, inject, signal, OnInit, computed, ViewEncapsulation } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ProductService, Product } from '@falling-water/share';
@@ -7,10 +7,11 @@ import { CategoryService, Category } from '@falling-water/share';
 @Component({
   selector: 'bo-product-list',
   standalone: true,
+  encapsulation: ViewEncapsulation.None,
   imports: [CommonModule, RouterLink, CurrencyPipe],
   template: `
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2>Products</h2>
+      <h1 class="display-1 mb-3">Products</h1>
       <a routerLink="/products/new" class="btn btn-primary">
         <i class="bi bi-plus-lg me-1"></i>
         Add Product
@@ -26,9 +27,8 @@ import { CategoryService, Category } from '@falling-water/share';
     } @else if (error()) {
       <div class="alert alert-danger">{{ error() }}</div>
     } @else {
-      <div class="card">
         <div class="table-responsive">
-          <table class="table table-hover mb-0">
+          <table class="table table-hover table-striped mb-0">
             <thead class="table-light">
               <tr>
                 <th>ID</th>
@@ -155,7 +155,6 @@ import { CategoryService, Category } from '@falling-water/share';
             </nav>
           </div>
         }
-      </div>
     }
   `,
 })

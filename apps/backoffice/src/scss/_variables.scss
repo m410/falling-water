@@ -1,3 +1,15 @@
+// 1. Define your font stack
+$font-family-sans-serif:
+  "Helvetica Now",
+  "Helvetica Neue",
+  Arial,
+  sans-serif;
+
+$font-family-base: $font-family-sans-serif;
+
+// Optional: headings use same or different font
+$headings-font-family: $font-family-sans-serif;
+
 
 $theme-colors: (
   "light":      #ddddce,

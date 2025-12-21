@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
+import { Component, inject, signal, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { SystemService, CreateSystemDTO, Label, SubmitButton } from '@falling-water/share';
 import { ProductService, Product } from '@falling-water/share';
@@ -7,10 +7,11 @@ import { Field, form } from '@angular/forms/signals';
 @Component({
   selector: 'bo-system-form',
   standalone: true,
+  encapsulation: ViewEncapsulation.None,
   imports: [Field, RouterLink, Label, SubmitButton],
   template: `
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2>{{ isEdit() ? 'Edit System' : 'New System' }}</h2>
+      <h1 class="display-1 mb-3">{{ isEdit() ? 'Edit System' : 'New System' }}</h1>
       <a routerLink="/systems" class="btn btn-outline-secondary">
         <i class="bi bi-arrow-left me-1"></i>
         Back to List

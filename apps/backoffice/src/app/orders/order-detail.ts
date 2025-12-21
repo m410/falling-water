@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
+import { Component, inject, signal, OnInit, ViewEncapsulation } from '@angular/core';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { OrderService, Order, OrderItem } from '@falling-water/share';
@@ -8,10 +8,11 @@ import { Field, form } from '@angular/forms/signals';
 @Component({
   selector: 'bo-order-detail',
   standalone: true,
+  encapsulation: ViewEncapsulation.None,
   imports: [Field, RouterLink, CurrencyPipe, DatePipe],
   template: `
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2>Order #{{ orderId }}</h2>
+      <h1 class="display-1 mb-3">Order #{{ orderId }}</h1>
       <a routerLink="/orders" class="btn btn-outline-secondary">
         <i class="bi bi-arrow-left me-1"></i>
         Back to List

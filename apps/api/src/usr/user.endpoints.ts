@@ -48,9 +48,23 @@ export class UserEndpoints {
 
   create = async (req: Request, res: Response, next: NextFunction) => {
     console.log('Creating user with data:', req.body);
-    
+
     try {
-      const user = await this.userService.create(req.body);
+      const { address, ...userData } = req.body;
+      const user = await this.userService.create(userData);
+
+      if (address) {
+        await this.addressService.create({
+          user_id: user.id,
+          type: 'shipping',
+          street: address.street,
+          city: address.city,
+          state: address.state,
+          postal_code: address.postal_code,
+          country: address.country,
+        });
+      }
+
       await this.emailService.sendWelcomeEmail(user.email, user.name);
       res.status(201).json(user);
     } catch (error) {

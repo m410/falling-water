@@ -1,14 +1,20 @@
-import { Component, inject, signal, OnInit, computed } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
-import { UserService, User } from '@falling-water/share';
+import { Component, inject, signal, OnInit, computed, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { SupplierService, Supplier } from '@falling-water/share';
 
 @Component({
-  selector: 'bo-users',
+  selector: 'bo-supplier-list',
   standalone: true,
-  imports: [CommonModule, DatePipe],
+  encapsulation: ViewEncapsulation.None,
+  imports: [CommonModule, RouterLink],
   template: `
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2>Users Management</h2>
+      <h1 class="display-1 mb-3">Suppliers</h1>
+      <a routerLink="/suppliers/new" class="btn btn-primary">
+        <i class="bi bi-plus-lg me-1"></i>
+        Add Supplier
+      </a>
     </div>
 
     @if (loading()) {
@@ -20,37 +26,60 @@ import { UserService, User } from '@falling-water/share';
     } @else if (error()) {
       <div class="alert alert-danger">{{ error() }}</div>
     } @else {
-      <div class="card">
         <div class="table-responsive">
-          <table class="table table-hover mb-0">
+          <table class="table table-hover table-striped mb-0">
             <thead class="table-light">
               <tr>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Roles</th>
-                <th>Created</th>
+                <th>Phone</th>
+                <th>Website</th>
                 <th class="text-end">Actions</th>
               </tr>
             </thead>
             <tbody>
-              @for (user of users(); track user.id) {
+              @for (supplier of suppliers(); track supplier.id) {
                 <tr>
-                  <td>{{ user.id }}</td>
+                  <td>{{ supplier.id }}</td>
                   <td>
-                    <strong>{{ user.name }}</strong>
-                  </td>
-                  <td>{{ user.email }}</td>
-                  <td>
-                    @for (role of user.roles; track role) {
-                      <span class="badge bg-secondary me-1">{{ role }}</span>
+                    <strong>{{ supplier.name }}</strong>
+                    @if (supplier.notes) {
+                      <br />
+                      <small class="text-muted">{{
+                        supplier.notes | slice : 0 : 50
+                      }}{{ supplier.notes.length > 50 ? '...' : '' }}</small>
                     }
                   </td>
-                  <td>{{ user.created_at | date : 'short' }}</td>
+                  <td>
+                    @if (supplier.email) {
+                      <a [href]="'mailto:' + supplier.email">{{ supplier.email }}</a>
+                    } @else {
+                      <span class="text-muted">-</span>
+                    }
+                  </td>
+                  <td>{{ supplier.phone || '-' }}</td>
+                  <td>
+                    @if (supplier.website) {
+                      <a [href]="supplier.website" target="_blank" rel="noopener">
+                        <i class="bi bi-box-arrow-up-right"></i>
+                      </a>
+                    } @else {
+                      <span class="text-muted">-</span>
+                    }
+                  </td>
                   <td class="text-end">
+                    <a
+                      [routerLink]="['/suppliers', supplier.id, 'edit']"
+                      class="btn btn-sm btn-outline-primary me-1"
+                      title="Edit"
+                    >
+                      <i class="bi bi-pencil"></i>
+                    </a>
                     <button
                       class="btn btn-sm btn-outline-danger"
-                      (click)="deleteUser(user)"
+                      (click)="deleteSupplier(supplier)"
+                      title="Delete"
                     >
                       <i class="bi bi-trash"></i>
                     </button>
@@ -59,7 +88,7 @@ import { UserService, User } from '@falling-water/share';
               } @empty {
                 <tr>
                   <td colspan="6" class="text-center text-muted py-4">
-                    No users found
+                    No suppliers found
                   </td>
                 </tr>
               }
@@ -71,7 +100,7 @@ import { UserService, User } from '@falling-water/share';
         @if (totalPages() > 1) {
           <div class="card-footer d-flex justify-content-between align-items-center">
             <div class="text-muted">
-              Showing {{ startItem() }}-{{ endItem() }} of {{ total() }} users
+              Showing {{ startItem() }}-{{ endItem() }} of {{ total() }} suppliers
             </div>
             <nav>
               <ul class="pagination pagination-sm mb-0">
@@ -104,14 +133,13 @@ import { UserService, User } from '@falling-water/share';
             </nav>
           </div>
         }
-      </div>
     }
   `,
 })
-export class Users implements OnInit {
-  private readonly userService = inject(UserService);
+export class SupplierList implements OnInit {
+  private readonly supplierService = inject(SupplierService);
 
-  protected users = signal<User[]>([]);
+  protected suppliers = signal<Supplier[]>([]);
   protected loading = signal(true);
   protected error = signal<string | null>(null);
   protected currentPage = signal(1);
@@ -152,22 +180,22 @@ export class Users implements OnInit {
   });
 
   ngOnInit(): void {
-    this.loadUsers();
+    this.loadSuppliers();
   }
 
-  private loadUsers(): void {
+  private loadSuppliers(): void {
     this.loading.set(true);
     this.error.set(null);
 
-    this.userService.findPage(this.currentPage(), this.pageSize()).subscribe({
+    this.supplierService.findPage(this.currentPage(), this.pageSize()).subscribe({
       next: (result) => {
-        this.users.set(result.data);
+        this.suppliers.set(result.data);
         this.total.set(result.total);
         this.totalPages.set(result.totalPages);
         this.loading.set(false);
       },
       error: (err) => {
-        this.error.set(err.error?.error || 'Failed to load users');
+        this.error.set(err.error?.error || 'Failed to load suppliers');
         this.loading.set(false);
       },
     });
@@ -178,23 +206,23 @@ export class Users implements OnInit {
       return;
     }
     this.currentPage.set(page);
-    this.loadUsers();
+    this.loadSuppliers();
   }
 
-  protected deleteUser(user: User): void {
-    if (!confirm(`Are you sure you want to delete user "${user.name}"?`)) {
+  protected deleteSupplier(supplier: Supplier): void {
+    if (!confirm(`Are you sure you want to delete "${supplier.name}"?`)) {
       return;
     }
 
-    this.userService.delete(user.id).subscribe({
+    this.supplierService.delete(supplier.id).subscribe({
       next: () => {
-        if (this.users().length === 1 && this.currentPage() > 1) {
+        if (this.suppliers().length === 1 && this.currentPage() > 1) {
           this.currentPage.update((p) => p - 1);
         }
-        this.loadUsers();
+        this.loadSuppliers();
       },
       error: (err) => {
-        alert(err.error?.error || 'Failed to delete user');
+        alert(err.error?.error || 'Failed to delete supplier');
       },
     });
   }
