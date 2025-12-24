@@ -3,12 +3,14 @@ import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { SystemService, CreateSystemDTO, Label, SubmitButton } from '@falling-water/share';
 import { ProductService, Product } from '@falling-water/share';
 import { Field, form } from '@angular/forms/signals';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'bo-system-form',
   standalone: true,
   encapsulation: ViewEncapsulation.None,
-  imports: [Field, RouterLink, Label, SubmitButton],
+  imports: [Field, RouterLink, Label, SubmitButton, JsonPipe],
   template: `
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h1 class="display-1 mb-3">{{ isEdit() ? 'Edit System' : 'New System' }}</h1>
@@ -168,7 +170,10 @@ export class SystemForm implements OnInit {
   protected loading = signal(false);
   protected saving = signal(false);
   protected error = signal<string | null>(null);
-  protected products = signal<Product[]>([]);
+  protected products = toSignal(this.productService.findAll(), {
+    initialValue: []
+  });
+
   protected systemId: number | null = null;
 
   protected readonly system = signal<CreateSystemDTO>({
@@ -184,7 +189,6 @@ export class SystemForm implements OnInit {
   protected form = form(this.system)
 
   ngOnInit(): void {
-    this.loadProducts();
 
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
@@ -192,13 +196,6 @@ export class SystemForm implements OnInit {
       this.isEdit.set(true);
       this.loadSystem();
     }
-  }
-
-  private loadProducts(): void {
-    this.productService.findAll().subscribe({
-      next: (data) => this.products.set(data),
-      error: () => {},
-    });
   }
 
   private loadSystem(): void {

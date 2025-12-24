@@ -1,0 +1,58 @@
+# Dependencies
+node_modules
+.npm
+
+# Build outputs
+dist
+.angular
+.nx
+
+# Git
+.git
+.gitignore
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# Testing
+coverage
+.nyc_output
+*.spec.ts
+*.test.ts
+**/*.spec.ts
+**/*.test.ts
+
+# E2E apps (not needed for production)
+apps/api-e2e
+apps/frontend-e2e
+
+# Documentation
+*.md
+!README.md
+docs
+
+# Development files
+.env.local
+.env.development
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Misc
+*.pxd
+falling-water-logo*.pxd
+system-ai-gen.pxd
+
+# Local config
+.mcp.json
+
+# Temporary files
+tmp
+temp
+*.tmp

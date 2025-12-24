@@ -1,52 +1,53 @@
 <h1 class="display-1">Contact us</h1>
-<form [formGroup]="form" (ngSubmit)="submit()">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="form-floating mb-3">
-        <input
-          type="text"
-          id="name"
-          class="fwe form-control"
-          formControlName="name"
-          [class.is-invalid]="invalid('name')"
-          [class.is-valid]="valid('name')"
-          placeholder="Name"
-        />
-        <label for="name">Name</label>
+
+<div class="row">
+  <div class="col-md-6 mb-4">
+    <p class="lead">Have questions about micro-hydro systems or need help designing your setup? We're here to help.</p>
+    <p>Whether you're exploring renewable energy options for your property, need technical guidance on system components, or want to discuss a custom installation, our team is ready to assist. Fill out the form and we'll get back to you within 1-2 business days.</p>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="submit()">
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              id="name"
+              class="fwe form-control"
+              formControlName="name"
+              [class.is-invalid]="invalid('name')"
+              [class.is-valid]="valid('name')"
+              placeholder="Name"
+            />
+            <label for="name">Name</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="email"
+              id="email"
+              class="fwe form-control"
+              formControlName="email"
+              [class.is-invalid]="invalid('email')"
+              [class.is-valid]="valid('email')"
+              placeholder="Email"
+            />
+            <label for="email">Email</label>
+          </div>
+          <div class="form-floating mb-3">
+            <textarea
+              id="message"
+              class="fwe form-control"
+              formControlName="message"
+              [class.is-invalid]="invalid('message')"
+              [class.is-valid]="valid('message')"
+              placeholder="Message"
+              style="height: 120px"
+            ></textarea>
+            <label for="message">Message</label>
+          </div>
+          <button type="submit" class="btn btn-primary">Send it</button>
+        </form>
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-6">
-      <div class="form-floating mb-3">
-        <input
-          type="email"
-          id="email"
-          class="fwe form-control"
-          formControlName="email"
-          [class.is-invalid]="invalid('email')"
-          [class.is-valid]="valid('email')"
-          placeholder="Email"
-        />
-        <label for="email">Email</label>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <div class="form-floating mb-3">
-        <textarea
-          id="message"
-          class="fwe form-control"
-          formControlName="message"
-          [class.is-invalid]="invalid('message')"
-          [class.is-valid]="valid('message')"
-          placeholder="Message"
-          style="height: 120px"
-        ></textarea>
-        <label for="message">Message</label>
-      </div>
-    </div>
-  </div>
-  <button type="submit" class="btn btn-primary">Send it</button>
-</form>
+</div>

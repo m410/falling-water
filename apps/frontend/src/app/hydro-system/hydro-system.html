@@ -1,41 +1,75 @@
 <h1 class="display-1">Micro-hydro system design</h1>
 
 <div class="row">
-    <div class="col-6 offset-3">
-        <figure>
-    <img src="system.png" alt="mini hydro system diagram" class="img-fluid">
-</figure>
-    </div>
+  <div class="col-12 col-lg-6">
+    <figure>
+      <img src="system.png" alt="mini hydro system diagram" class="img-fluid">
+    </figure>
+  </div>
+  <div class="col-12 col-lg-6">
+    <ol class="hydro-components">
+      <li>
+        <strong>Upstream Water Source</strong>
+        <p>The natural water source feeding your system. This could be a stream, creek, or river with consistent year-round flow. The ideal source has a steep gradient and reliable water volume, even during dry seasons.</p>
+      </li>
+      <li>
+        <strong>Stream Monitor</strong>
+        <p>Sensors placed upstream to measure critical water conditions in real-time:</p>
+        <ul>
+          <li><em>Flow rate</em> - Volume of water passing per second (liters/sec or gallons/min)</li>
+          <li><em>Water depth</em> - Indicates available water volume</li>
+          <li><em>Temperature</em> - Affects water density and equipment performance</li>
+          <li><em>Debris detection</em> - Alerts when blockages may occur</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Weir and Intake</strong>
+        <p>A low dam or barrier built across the stream to raise the water level and direct flow into the intake. The weir creates a controlled diversion point while allowing excess water to overflow naturally. A Coanda screen at the intake filters debris and sediment before water enters the penstock.</p>
+      </li>
+      <li>
+        <strong>Penstock</strong>
+        <p>The enclosed pipe that carries water from the weir down to the generator. Penstock diameter and material affect system efficiency - larger pipes reduce friction losses. The vertical drop (head) between the intake and generator determines the water pressure and potential power output.</p>
+      </li>
+      <li>
+        <strong>Environmental Bypass</strong>
+        <p>A portion of the stream must always flow freely past the weir to maintain the downstream ecosystem. Environmental regulations typically require a minimum bypass flow to protect aquatic habitats, fish migration, and downstream water users.</p>
+      </li>
+      <li>
+        <strong>Generator / Turbine</strong>
+        <p>The heart of the system where water pressure is converted to rotational energy, then electricity. The turbine housing protects components and directs water flow optimally.</p>
+        <ul>
+          <li><em>Pelton wheel</em> - Best for high head (30m+), low flow sites. Uses cup-shaped buckets that capture energy from high-pressure water jets.</li>
+          <li><em>Turgo wheel</em> - Handles higher flow rates than Pelton. Water strikes buckets at an angle, allowing faster rotation and more compact design.</li>
+          <li><em>Crossflow turbine</em> - Suitable for medium head, higher flow. Water passes through the runner twice, self-cleaning debris.</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Power Conditioning</strong>
+        <p>Converts raw generator output into stable, usable electricity:</p>
+        <ul>
+          <li><em>Rectifier</em> - Converts AC from generator to DC</li>
+          <li><em>MPPT Controller</em> - Optimizes power extraction as water conditions vary</li>
+          <li><em>Inverter</em> - Converts DC to household AC (120V/240V)</li>
+          <li><em>Battery storage</em> - Stores excess energy for peak demand or low-water periods</li>
+        </ul>
+      </li>
+    </ol>
+
+  </div>
 </div>
-<h2><i class="bi bi-filter-square"></i> Coanda screen</h2>
-<p class="ps-3">define</p>
-<h2><i class="bi bi-fast-forward"></i> Efficiency</h2>
-<p class="ps-3">define</p>
-<h2><i class="bi bi-power"></i>Flow rate</h2>
-<p class="ps-3">define</p>
-<h2><i class="bi bi-power"></i> Head</h2>
-<p class="ps-3">define</p>
-<h2>Inverter</h2>
-<p class="ps-3">define</p>
-<h2><i class="bi bi-fan"></i>MPPT</h2>
-<p class="ps-3">define</p>
-<h2><i class="bi bi-power"></i> Penstock</h2>
-<p class="ps-3">define</p>
-<h2><i class="bi bi-power"></i> Power (kW and kWh)</h2>
-<p class="ps-3">define</p>
-<h2><i class="bi bi-fan"></i><i class="bi bi-power"></i> Generator</h2>
-<p class="ps-3">define</p>
-<h2><i class="bi bi-arrow-down-right-square"></i> Weir</h2>
-<p class="ps-3">define</p>
-<p>Colors</p>
-<!-- https://huemint.com/bootstrap-basic/ -->
 <div class="row">
-    <div class="col-md-3"><div class="p-3 mb-3 text-bg-light rounded-3">Primary</div></div>
-    <div class="col-md-3"><div class="p-3 mb-3 text-bg-dark rounded-3">Primary</div></div>
-    <div class="col-md-3"><div class="p-3 mb-3 text-bg-primary rounded-3">Primary</div></div>
-    <div class="col-md-3"><div class="p-3 mb-3 text-bg-secondary rounded-3">Primary</div></div>
-    <div class="col-md-3"><div class="p-3 mb-3 text-bg-info rounded-3">Primary</div></div>
-    <div class="col-md-3"><div class="p-3 mb-3 text-bg-success rounded-3">Primary</div></div>
-    <div class="col-md-3"><div class="p-3 mb-3 text-bg-warning rounded-3">Primary</div></div>
-    <div class="col-md-3"><div class="p-3 mb-3 text-bg-danger rounded-3">Primary</div></div>
+  <div class="col">
+    <p>Colors</p>
+    <!-- https://huemint.com/bootstrap-basic/ -->
+    <div class="row">
+      <div class="col-md-3"><div class="p-3 mb-3 text-bg-light rounded-3">Primary</div></div>
+      <div class="col-md-3"><div class="p-3 mb-3 text-bg-dark rounded-3">Primary</div></div>
+      <div class="col-md-3"><div class="p-3 mb-3 text-bg-primary rounded-3">Primary</div></div>
+      <div class="col-md-3"><div class="p-3 mb-3 text-bg-secondary rounded-3">Primary</div></div>
+      <div class="col-md-3"><div class="p-3 mb-3 text-bg-info rounded-3">Primary</div></div>
+      <div class="col-md-3"><div class="p-3 mb-3 text-bg-success rounded-3">Primary</div></div>
+      <div class="col-md-3"><div class="p-3 mb-3 text-bg-warning rounded-3">Primary</div></div>
+      <div class="col-md-3"><div class="p-3 mb-3 text-bg-danger rounded-3">Primary</div></div>
+    </div>
+  </div>
 </div>

@@ -1,7 +1,8 @@
 <div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-6 col-lg-4">
-      <div class="card shadow-sm">
+  <div class="row justify-content-center g-4">
+    <!-- Login Column -->
+    <div class="col-md-6 col-lg-5">
+      <div class="card shadow-sm h-100">
         <div class="card-header">
           <h4 class="mb-0">
             <i class="bi bi-person-circle me-2"></i>
@@ -9,43 +10,43 @@
           </h4>
         </div>
         <div class="card-body">
-          @if (error()) {
+          @if (loginError()) {
             <div class="alert alert-danger" role="alert">
-              {{ error() }}
+              {{ loginError() }}
             </div>
           }
 
-          <form (submit)="onSubmit($event)">
+          <form (submit)="onLogin($event)">
             <div class="form-floating mb-3">
               <input
                 type="text"
                 class="fwe form-control"
-                id="username"
-                [field]="form.email"
+                id="login-email"
+                [field]="loginForm.email"
                 autocomplete="username"
                 placeholder="Email"
               />
-              <label for="username">Email</label>
+              <label for="login-email">Email</label>
             </div>
 
             <div class="form-floating mb-3">
               <input
                 type="password"
                 class="fwe form-control"
-                id="password"
-                [field]="form.password"
+                id="login-password"
+                [field]="loginForm.password"
                 autocomplete="current-password"
                 placeholder="Password"
               />
-              <label for="password">Password</label>
+              <label for="login-password">Password</label>
             </div>
 
             <button
               type="submit"
               class="btn btn-primary w-100"
-              [disabled]="loading()"
+              [disabled]="loginLoading()"
             >
-              @if (loading()) {
+              @if (loginLoading()) {
                 <span class="spinner-border spinner-border-sm me-2"></span>
                 Signing in...
               } @else {
@@ -53,13 +54,89 @@
               }
             </button>
           </form>
+        </div>
+      </div>
+    </div>
 
-          <hr />
+    <!-- Register Column -->
+    <div class="col-md-6 col-lg-5">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h4 class="mb-0">
+            <i class="bi bi-person-plus me-2"></i>
+            Create Account
+          </h4>
+        </div>
+        <div class="card-body">
+          @if (registerError()) {
+            <div class="alert alert-danger" role="alert">
+              {{ registerError() }}
+            </div>
+          }
 
-          <p class="text-center mb-0">
-            Don't have an account?
-            <a [routerLink]="['/register']">Create one</a>
-          </p>
+          <form (submit)="onRegister($event)" novalidate>
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                class="fwe form-control"
+                id="register-name"
+                [field]="registerForm.name"
+                autocomplete="name"
+                placeholder="Full Name"
+              />
+              <label for="register-name">Full Name</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input
+                type="email"
+                class="fwe form-control"
+                id="register-email"
+                [field]="registerForm.email"
+                autocomplete="email"
+                placeholder="Email Address"
+              />
+              <label for="register-email">Email Address</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input
+                type="password"
+                class="fwe form-control"
+                id="register-password"
+                [field]="registerForm.password"
+                autocomplete="new-password"
+                placeholder="Password"
+              />
+              <label for="register-password">Password</label>
+              <password-strength-meter [password]="password()" enableFeedback />
+            </div>
+
+            <div class="form-floating mb-3">
+              <input
+                type="password"
+                class="fwe form-control"
+                id="register-confirmPassword"
+                [field]="registerForm.passwordConfirm"
+                autocomplete="new-password"
+                placeholder="Confirm Password"
+              />
+              <label for="register-confirmPassword">Confirm Password</label>
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-primary w-100"
+              [disabled]="registerLoading()"
+            >
+              @if (registerLoading()) {
+                <span class="spinner-border spinner-border-sm me-2"></span>
+                Creating Account...
+              } @else {
+                Create Account
+              }
+            </button>
+          </form>
         </div>
       </div>
     </div>

@@ -10,6 +10,7 @@ export * from './lib/services/user.service';
 export * from './lib/services/system.service';
 export * from './lib/services/payment.service';
 export * from './lib/services/supplier.service';
+export * from './lib/services/cart.service';
 
 export * from './lib/share/share';
 export * from './lib/label/label';

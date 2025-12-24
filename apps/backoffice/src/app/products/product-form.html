@@ -81,43 +81,49 @@
               </select>
             </fwe-label>
 
-            <fwe-label [label]="'Source'">
-              <input
-                type="text"
-                class="fwe form-control"
+            <fwe-label [label]="'Supplier'">
+              <select
+                class="fwe form-select"
                 id="source"
                 [field]="form.source"
-              />
+              >
+                <option [value]="''">No Supplier</option>
+                @for (supplier of suppliers(); track supplier.id) {
+                  <option [value]="supplier.id">{{ supplier.name }}</option>
+                }
+              </select>
             </fwe-label>
 
             <!-- Product Images -->
-<!--            <div class="mb-3">-->
-<!--              <label class="form-label">Product Images</label>-->
-<!--              @for (image of images(); track $index) {-->
-<!--                <div class="input-group mb-2">-->
-<!--                  <input-->
-<!--                    type="url"-->
-<!--                    class="fwe form-control"-->
-<!--                    [field]="form.images[$index].image_url"-->
-<!--                  />-->
-<!--                  <button-->
-<!--                    type="button"-->
-<!--                    class="btn btn-outline-danger"-->
-<!--                    (click)="removeImage($index)"-->
-<!--                  >-->
-<!--                    <i class="bi bi-trash"></i>-->
-<!--                  </button>-->
-<!--                </div>-->
-<!--              }-->
-<!--              <button-->
-<!--                type="button"-->
-<!--                class="btn btn-outline-secondary btn-sm"-->
-<!--                (click)="addImage()"-->
-<!--              >-->
-<!--                <i class="bi bi-plus-lg me-1"></i>-->
-<!--                Add Image-->
-<!--              </button>-->
-<!--            </div>-->
+            <div class="mb-3">
+              <label class="form-label">Product Images</label>
+              @for (image of images(); track $index) {
+                <div class="input-group mb-2">
+                  <input
+                    type="url"
+                    class="form-control"
+                    placeholder="Image URL"
+                    [value]="image.image_url"
+                    (input)="updateImageUrl($index, $event)"
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-outline-danger"
+                    (click)="removeImage($index)"
+                  >
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              }
+              <button
+                type="button"
+                class="btn btn-outline-secondary btn-sm"
+                (click)="addImage()"
+              >
+                <i class="bi bi-plus-lg me-1"></i>
+                Add Image
+              </button>
+            </div>
           </div>
 
           <div class="col-md-4">

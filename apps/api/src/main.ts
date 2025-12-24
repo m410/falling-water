@@ -46,7 +46,9 @@ export function createApp(container: ServiceContainer): Express {
   app.use('/storage', express.static(container.storageDir));
 
   app.use('/api', createAuthRoutes(new AuthEndpoints(
-    container.userService)));
+    container.userService,
+    container.orderService
+  )));
   
   app.use('/api/users', createUserRoutes(new UserEndpoints(
     container.userService,
@@ -91,6 +93,11 @@ export function createApp(container: ServiceContainer): Express {
     new ImageEndpoints(),
     container.storageDir
   ));
+
+  // Health check endpoint for container orchestration
+  app.get('/api/health', (req: Request, res: Response) => {
+    res.status(200).json({ status: 'healthy', timestamp: new Date().toISOString() });
+  });
 
   app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     console.error('Error:', err);

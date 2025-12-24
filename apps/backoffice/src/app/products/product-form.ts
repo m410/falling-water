@@ -1,11 +1,16 @@
 import { Component, inject, signal, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
+
+import { Field, form } from '@angular/forms/signals';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { catchError, of } from 'rxjs';
+
 import {
   ProductService,
-  CreateProductDTO, Label, UpdateProductDTO
+  Label,
+  CategoryService,
+  SupplierService
 } from '@falling-water/share';
-import { CategoryService, Category } from '@falling-water/share';
-import { Field, form } from '@angular/forms/signals';
 
 interface ImageEntry {
   id?: number;
@@ -33,6 +38,7 @@ interface Form {
 export class ProductForm implements OnInit {
   private readonly productService = inject(ProductService);
   private readonly categoryService = inject(CategoryService);
+  private readonly supplierService = inject(SupplierService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
@@ -42,7 +48,19 @@ export class ProductForm implements OnInit {
   protected loading = signal(false);
   protected saving = signal(false);
   protected error = signal<string | null>(null);
-  protected categories = signal<Category[]>([]);
+  protected categories = toSignal(this.categoryService.findAll(), {
+    initialValue: []
+  });
+
+  protected suppliers = toSignal(this.supplierService.findAll().pipe(
+    catchError(e => {
+      console.error(e);
+      return of([])
+    })
+  ), {
+    initialValue: []
+  });
+
   protected productId: number | null = null;
 
   protected readonly product = signal<Form>({
@@ -58,22 +76,12 @@ export class ProductForm implements OnInit {
   protected readonly form = form(this.product);
 
   ngOnInit(): void {
-    this.loadCategories();
-
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
       this.productId = parseInt(idParam, 10);
       this.isEdit.set(true);
       this.loadProduct();
     }
-  }
-
-  private loadCategories(): void {
-    this.categoryService.findAll().subscribe({
-      next: (data) => this.categories.set(data),
-      error: () => {
-      }
-    });
   }
 
   private loadProduct(): void {
@@ -111,6 +119,13 @@ export class ProductForm implements OnInit {
       const newImages = imgs.filter((_, i) => i !== index);
       return newImages.map((img, i) => ({ ...img, display_order: i }));
     });
+  }
+
+  protected updateImageUrl(index: number, event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.images.update((imgs) =>
+      imgs.map((img, i) => (i === index ? { ...img, image_url: input.value } : img))
+    );
   }
 
   protected onSubmit($event: Event): void {

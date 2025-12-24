@@ -3,6 +3,7 @@ import { User } from '../usr/user';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { UserRepository } from '../usr/user.repository';
+import { OrderRepository } from '../order/order.repository';
 
 const users: User[] = [
   {
@@ -31,9 +32,9 @@ const users: User[] = [
 
 export class AuthEndpoints {
 
-  // add dependency on userService to login
   constructor(
-    protected userService: UserRepository
+    protected userService: UserRepository,
+    protected orderService: OrderRepository
   ) {}
   
   login = async (req: Request, res: Response) => {
@@ -94,5 +95,32 @@ export class AuthEndpoints {
   logout = (req: Request, res: Response) => {
     // Invalidate token logic would go here (e.g., add to blacklist)
     res.json({ message: 'Logged out successfully' });
+  };
+
+  getProfile = async (req: Request, res: Response) => {
+    try {
+      const userId = req.user?.id;
+      if (!userId) {
+        return res.status(401).json({ error: 'Not authenticated' });
+      }
+
+      const user = await this.userService.findById(userId);
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      const orders = await this.orderService.findByUserId(userId);
+
+      // Remove sensitive data
+      const { password_hash, ...safeUser } = user as any;
+
+      res.json({
+        user: safeUser,
+        orders,
+      });
+    } catch (error) {
+      console.error('Error fetching profile:', error);
+      res.status(500).json({ error: 'Failed to load profile' });
+    }
   };
 }

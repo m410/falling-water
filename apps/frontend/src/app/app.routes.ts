@@ -49,18 +49,13 @@ export const appRoutes: Route[] = [
       {
         path: 'login',
         loadComponent: () => import('./login/login').then((m) => m.Login),
-        title: 'Falling Water - Login',
+        title: 'Falling Water - Sign In / Register',
       },
       {
         path: 'register',
-        loadComponent: () => import('./register/register').then((m) => m.Register),
-        title: 'Falling Water - Register',
+        redirectTo: 'login',
+        pathMatch: 'full',
       },
     ],
-  },
-  {
-    path: 'look',
-    loadComponent: () => import('./look/look').then((m) => m.Look),
-    title: 'Falling Water - Look test',
   }
 ];
