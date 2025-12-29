@@ -1,10 +1,5 @@
 // 1. Define your font stack
-$font-family-sans-serif:
-  "Helvetica Now",
-  "Helvetica Neue",
-  Arial,
-  sans-serif;
-
+$font-family-sans-serif: "Helvetica Now", "Helvetica Neue", Arial, sans-serif;
 $font-family-base: $font-family-sans-serif;
 
 // Optional: headings use same or different font
@@ -12,15 +7,29 @@ $headings-font-family: $font-family-sans-serif;
 
 
 $theme-colors: (
-  "light":      #ddddce,
-  "dark":       #02191c,
-  "primary":    #034226,
-  "secondary":  #695e33,
-  "info":       #cb5235,
-  "success":    #069924,
-  "warning":    #f0c108,
-  "danger":     #ed0343,
+  "light":      #cee3ed,
+  "dark":       #060f1d,
+  "primary":    #13406a,
+  "secondary":  #0f73ac,
+  "info":       #6e8492,
+  "accent1":    #255761,
+  "accent2":    #3e6f7a,
+  "accent3":    #88a9bd,
+  "success":    #08a059,
+  "warning":    #e3c908,
+  "danger":     #f20d03,
 );
+
+//$theme-colors: (
+//  "light":      #ddddce,
+//  "dark":       #02191c,
+//  "primary":    #034226,
+//  "secondary":  #695e33,
+//  "info":       #cb5235,
+//  "success":    #069924,
+//  "warning":    #f0c108,
+//  "danger":     #ed0343,
+//);
 
 $light: #ddddce;
 $dark: #02191c;
@@ -30,17 +39,25 @@ $info: #cb5235;
 $success: #069924;
 $warning: #f0c108;
 $danger: #ed0343;
+
+$enable-rounded: false;
+$enable-shadows: true;
+$enable-gradients: true;
+
 $enable-hover-media-query: true;
 $enable-responsive-font-sizes: true;
 $enable-prefers-reduced-motion-media-query: false;
-$enable-gradients: true;
-$enable-shadows: true;
-$border-radius: 1rem;
-$border-radius-lg: 1.25rem;
-$border-radius-sm: .25rem;
+
+$enable-validation-icons: false;
+
+$border-radius: .25rem;
+$border-radius-lg: .5rem;
+$border-radius-sm: .125rem;
+
 $border-color: #ddddce;
 
-$input-bg: #f8f9fa;
+//$input-bg: #f8f9fa;
+$input-border-radius: 0;
 $input-border: 0;
 $input-border-width: 0;
 $input-box-shadow: none;

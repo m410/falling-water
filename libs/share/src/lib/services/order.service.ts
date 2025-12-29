@@ -64,4 +64,8 @@ export class OrderService {
   getOrderItems(orderId: number): Observable<OrderItem[]> {
     return this.http.get<OrderItem[]>(`/api/order-items/order/${orderId}`);
   }
+
+  findByUserId(userId: number): Observable<Order[]> {
+    return this.http.get<Order[]>(`/api/users/${userId}/orders`);
+  }
 }

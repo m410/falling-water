@@ -1,7 +1,5 @@
 
 .fwe.form-control, .fwe.form-select {
-  border-bottom: 2px solid $white;
-  background-color: $light;
   &:focus {
     border-bottom: 2px solid $secondary;
   }
@@ -12,12 +10,5 @@
     border-bottom: 2px solid $danger;
   }
   box-shadow: none;
-
-  //@include color-scheme(light) {
-  //  // Insert light mode styles here
-  //}
-  //
-  //@include color-scheme(dark) {
-  //  // Insert dark mode styles here
-  //}
+  background-image: none;
 }

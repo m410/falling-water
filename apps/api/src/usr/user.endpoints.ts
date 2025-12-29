@@ -1,6 +1,7 @@
 import { UserRepository } from "./user.repository";
 import { EmailService } from "./user.email";
 import { AddressRepository } from "../address/address.repository";
+import { OrderRepository } from "../order/order.repository";
 import {  Request, Response, NextFunction } from 'express';
 
 
@@ -8,7 +9,8 @@ export class UserEndpoints {
   constructor(
     private userService: UserRepository,
     private emailService: EmailService,
-    private addressService: AddressRepository
+    private addressService: AddressRepository,
+    private orderService: OrderRepository
   ) {}
 
   findAll = async (req: Request, res: Response, next: NextFunction) => {
@@ -113,6 +115,22 @@ export class UserEndpoints {
 
       const addresses = await this.addressService.findByUserId(userId);
       res.json(addresses);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  getOrders = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userId = parseInt(req.params.id);
+      const user = await this.userService.findById(userId);
+
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      const orders = await this.orderService.findByUserId(userId);
+      res.json(orders);
     } catch (error) {
       next(error);
     }

@@ -2,13 +2,14 @@ import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from '@falling-water/share';
-import { Field, form } from '@angular/forms/signals';
+import { AuthService, Label } from '@falling-water/share';
+import { email, Field, form, required } from '@angular/forms/signals';
+
 
 @Component({
   selector: 'bo-login',
   standalone: true,
-  imports: [Field],
+  imports: [Field, Label],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './login.html',
 })
@@ -19,6 +20,18 @@ export class Login {
 
   protected error = signal<string | null>(null);
   protected loading = signal(false);
+
+
+  protected readonly login = signal({
+    username: '',
+    password: '',
+  })
+
+  protected readonly form = form(this.login, (path) => {
+    required(path.username)
+    email(path.username)
+    required(path.password)
+  });
 
   constructor() {
     const errorParam = this.route.snapshot.queryParamMap.get('error');
@@ -31,12 +44,6 @@ export class Login {
     }
   }
 
-  protected readonly login = signal({
-    username: '',
-    password: '',
-  })
-
-  protected readonly form = form(this.login)
 
   protected onSubmit($event: Event): void {
     $event.preventDefault();

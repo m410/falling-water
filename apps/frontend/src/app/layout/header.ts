@@ -9,33 +9,32 @@ import { AuthService, CartService } from '@falling-water/share';
     <header class="row mb-5 mt-3">
 
       <div class="col-12 col-md-5 offset-md-1 d-flex">
-        <h1 class="display-6 float-md-start mb-0">
-          <a [routerLink]="['/']" class="text-decoration-none">
+        <h1 class="text-accent1 display-6 float-md-start mb-0">
+          <a [routerLink]="['/']" class="text-decoration-none text-accent1">
               <img
-                src="falling-water-logo3.1.svg"
+                src="falling-water-4.1.svg"
                 alt="falling water energy logo"
-                height="48px">
+                height="72px">
             Falling water energy
           </a>
         </h1>
       </div>
       <div class="col-12 col-md-5  d-flex justify-content-end align-items-center">
         <ul class="nav nav-underline mt-3 ">
-
           <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active" [routerLink]="['/hydro-system']">Design</a>
+            <a class="nav-link text-info" routerLinkActive="active" [routerLink]="['/hydro-system']">Design</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active" [routerLink]="['/store']">Store</a>
+            <a class="nav-link text-info" routerLinkActive="active" [routerLink]="['/store']">Store</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active" [routerLink]="['/contact']">
+            <a class="nav-link text-info" routerLinkActive="active" [routerLink]="['/contact']">
               <i class="bi bi-envelope"></i>
             </a>
           </li>
           @if (cartService.itemCount() > 0) {
             <li class="nav-item">
-              <a class="nav-link position-relative" routerLinkActive="active" [routerLink]="['/cart']">
+              <a class="nav-link position-relative text-info" routerLinkActive="active" [routerLink]="['/cart']">
                 <i class="bi bi-cart4"></i>
                 <span class="cart-badge">{{ cartService.itemCount() }}</span>
               </a>
@@ -43,11 +42,11 @@ import { AuthService, CartService } from '@falling-water/share';
           }
           <li class="nav-item">
             @if (authService.isAuthenticated()) {
-              <a class="nav-link" routerLinkActive="active" [routerLink]="['/account']">
+              <a class="nav-link text-info" routerLinkActive="active" [routerLink]="['/account']">
                 <span class="user-initials">{{ initials() }}</span>
               </a>
             } @else {
-              <a class="nav-link" routerLinkActive="active" [routerLink]="['/login']">
+              <a class="nav-link text-info" routerLinkActive="active" [routerLink]="['/login']">
                 <i class="bi bi-person-circle"></i>
               </a>
             }

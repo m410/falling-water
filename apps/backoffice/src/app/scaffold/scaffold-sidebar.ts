@@ -10,7 +10,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
       <a
         [routerLink]="['/scaffold']"
         class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-        <img src="/falling-water-logo2.svg" alt="falling water energy icon" style="height: 1.5rem" class="me-2">
+        <img src="/falling-water-4.1.svg" alt="falling water energy icon" style="height: 1.5rem" class="me-2">
         <span class="fs-4">Falling water (office)</span>
       </a>
       <ul class="nav nav-pills flex-column mb-auto">

@@ -4,7 +4,7 @@ import { SupplierEndpoints } from './supplier.endpoints';
 export function createSupplierRoutes(controller: SupplierEndpoints): Router {
   const router = Router();
 
-  router.get('/', controller.findPage);
+  router.get('/', controller.findAll);
   router.get('/:id', controller.findById);
   router.post('/', controller.create);
   router.put('/:id', controller.update);

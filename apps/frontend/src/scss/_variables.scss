@@ -7,15 +7,29 @@ $font-family-sans-serif:
 $font-family-base: $font-family-sans-serif;
 
 $theme-colors: (
-    "light":      #ddddce,
-    "dark":       #02191c,
-    "primary":    #034226,
-    "secondary":  #695e33,
-    "info":       #cb5235,
-    "success":    #069924,
-    "warning":    #f0c108,
-    "danger":     #ed0343,
+  "light":      #e7e9d2,
+  "dark":       #010001,
+  "primary":    #41391c,
+  "secondary":  #52532d,
+  "info":       #929240,
+  "accent1":    #1b2610,
+  "accent2":    #494a34,
+  "accent3":    #b1aca3,
+  "success":    #449523,
+  "warning":    #fbbc28,
+  "danger":     #e81558,
 );
+
+//$theme-colors: (
+//    "light":      #ddddce,
+//    "dark":       #02191c,
+//    "primary":    #034226,
+//    "secondary":  #695e33,
+//    "info":       #cb5235,
+//    "success":    #069924,
+//    "warning":    #f0c108,
+//    "danger":     #ed0343,
+//);
 
 $light: #ddddce;
 $dark: #02191c;
@@ -35,3 +49,8 @@ $border-radius-lg: 1.25rem;
 $border-radius-sm: .25rem;
 $border-color: #ddddce;
 
+$input-bg: #f8f9fa;
+$input-border-radius: 0;
+$input-border: 0;
+$input-border-width: 0;
+$input-box-shadow: none;

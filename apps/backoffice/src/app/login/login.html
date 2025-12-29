@@ -15,19 +15,18 @@
             </div>
           }
 
-          <form (submit)="onSubmit($event)">
-            <div class="form-floating mb-3">
+          <form (submit)="onSubmit($event)" novalidate>
+            <fwe-label [label]="'Username'">
               <input
-                type="text"
                 class="fwe form-control"
                 id="username"
                 [field]="form.username"
                 autocomplete="username"
+                autofocus
               />
-              <label for="username">Username</label>
-            </div>
+            </fwe-label>
 
-            <div class="form-floating mb-3">
+            <fwe-label [label]="'Password'">
               <input
                 type="password"
                 class="fwe form-control"
@@ -35,8 +34,7 @@
                 [field]="form.password"
                 autocomplete="current-password"
               />
-              <label for="password">Password</label>
-            </div>
+            </fwe-label>
 
             <button
               type="submit"

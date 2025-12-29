@@ -9,7 +9,8 @@ import {
   ProductService,
   Label,
   CategoryService,
-  SupplierService
+  SupplierService,
+  FileService
 } from '@falling-water/share';
 
 interface ImageEntry {
@@ -39,6 +40,7 @@ export class ProductForm implements OnInit {
   private readonly productService = inject(ProductService);
   private readonly categoryService = inject(CategoryService);
   private readonly supplierService = inject(SupplierService);
+  private readonly fileService = inject(FileService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
@@ -48,6 +50,7 @@ export class ProductForm implements OnInit {
   protected loading = signal(false);
   protected saving = signal(false);
   protected error = signal<string | null>(null);
+  protected uploading = signal<Set<number>>(new Set());
   protected categories = toSignal(this.categoryService.findAll(), {
     initialValue: []
   });
@@ -126,6 +129,41 @@ export class ProductForm implements OnInit {
     this.images.update((imgs) =>
       imgs.map((img, i) => (i === index ? { ...img, image_url: input.value } : img))
     );
+  }
+
+  protected uploadImage(index: number, event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return;
+
+    this.uploading.update(set => new Set(set).add(index));
+
+    this.fileService.uploadImage(file).subscribe({
+      next: (result) => {
+        this.images.update((imgs) =>
+          imgs.map((img, i) => (i === index ? { ...img, image_url: result.url } : img))
+        );
+        this.uploading.update(set => {
+          const newSet = new Set(set);
+          newSet.delete(index);
+          return newSet;
+        });
+      },
+      error: (err) => {
+        this.error.set(err.error?.error || 'Failed to upload image');
+        this.uploading.update(set => {
+          const newSet = new Set(set);
+          newSet.delete(index);
+          return newSet;
+        });
+      }
+    });
+
+    input.value = '';
+  }
+
+  protected isUploading(index: number): boolean {
+    return this.uploading().has(index);
   }
 
   protected onSubmit($event: Event): void {

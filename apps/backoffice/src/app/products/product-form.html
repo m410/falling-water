@@ -100,12 +100,26 @@
               @for (image of images(); track $index) {
                 <div class="input-group mb-2">
                   <input
-                    type="url"
-                    class="form-control"
+                    type="text"
+                    class="fwe form-control"
                     placeholder="Image URL"
                     [value]="image.image_url"
                     (input)="updateImageUrl($index, $event)"
                   />
+                  <label class="btn btn-outline-primary mb-0" [class.disabled]="isUploading($index)">
+                    @if (isUploading($index)) {
+                      <span class="spinner-border spinner-border-sm"></span>
+                    } @else {
+                      <i class="bi bi-upload"></i>
+                    }
+                    <input
+                      type="file"
+                      accept="image/*"
+                      class="d-none"
+                      (change)="uploadImage($index, $event)"
+                      [disabled]="isUploading($index)"
+                    />
+                  </label>
                   <button
                     type="button"
                     class="btn btn-outline-danger"

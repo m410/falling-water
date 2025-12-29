@@ -30,6 +30,11 @@ export const appRoutes: Route[] = [
         title: 'Backoffice - Users',
       },
       {
+        path: 'users/:id',
+        loadComponent: () => import('./users/user-detail').then((m) => m.UserDetail),
+        title: 'Backoffice - User Details',
+      },
+      {
         path: 'categories',
         loadComponent: () =>
           import('./categories/category-list').then((m) => m.CategoryList),
@@ -126,19 +131,6 @@ export const appRoutes: Route[] = [
         title: 'Backoffice - Edit Supplier',
       },
     ],
-  },
-  {
-    path: '',
-    loadComponent: () => import('./scaffold/scaffold').then((m) => m.Scaffold),
-    children: [
-      {
-        path: 'scaffold',
-        loadComponent: () =>
-          import('./scaffold/scaffold-test').then((m) => m.ScaffoldTest),
-        pathMatch: 'full',
-        title: 'Backoffice - Scaffold test',
-      },
-      ]
   },
   {
     path: '**',

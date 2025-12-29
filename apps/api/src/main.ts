@@ -53,7 +53,8 @@ export function createApp(container: ServiceContainer): Express {
   app.use('/api/users', createUserRoutes(new UserEndpoints(
     container.userService,
     container.emailService,
-    container.addressService
+    container.addressService,
+    container.orderService
   )));
   app.use('/api/products', createProductRoutes(new ProductEndpoints(
     container.productService

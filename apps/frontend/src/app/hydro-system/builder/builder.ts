@@ -1,4 +1,4 @@
-import { Component, output, signal, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, output, signal, ViewEncapsulation } from '@angular/core';
 
 import { RouterLink } from '@angular/router';
 
@@ -11,6 +11,7 @@ import { PowerOutput } from './power-output';
   templateUrl: './builder.html',
   styles: ``,
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Builder {
   readonly result = output<PowerOutput>();
